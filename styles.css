@@ -9,8 +9,10 @@ body {
     font-family: 'Montserrat', sans-serif;
     background-color: #000000;
     color: #333;
+
    
 }
+
 
 /* Navbar */
 .navbar {
@@ -94,7 +96,7 @@ body {
     font-size: 3rem;
     margin-bottom: 10px;
     opacity: 0;
-    animation: fadeIn 1s ease-out forwards;
+    animation: fadeIn 2s ease-out forwards;
 }
 
 .hero-content p {
@@ -103,6 +105,22 @@ body {
     animation: fadeIn 1.5s ease-out forwards;
     animation-delay: 0.5s;
 }
+
+.hero-content .rounded-image{
+    border-radius: 20px;
+    position: relative;
+    align-items: center;
+    animation: disappear 3s forwards; /* Menentukan animasi, durasi, dan agar tetap hilang */
+    
+}
+
+@keyframes disappear {
+    0% { opacity: 0; } 
+    75% {opacity: 0;}/* Mulai dengan opasitas penuh */
+    100% { opacity: 1; } /* Akhir dengan opasitas 0 (hilang) */
+}
+
+
 
 @keyframes fadeIn {
     0% {
@@ -179,5 +197,21 @@ body {
     }
 }
 
+    footer  {
+        color: black;
+        font-family:'open sans', sans-serif;
+        position: fixed;
+        bottom: 15px; /* Sesuaikan jarak dari bawah layar */
+        width: 100%;
+        text-align: right;
+        right: 20px;
+        background: linear-gradient(to right , #c3c1c1, #7e7e7e);
+        padding: 5px;
+        width: 183px;
+        border-radius: 10px;
+        
+    }
+   
+    
 
 
