@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     toggleButton.addEventListener('click', () => {
         navbarLinks.classList.toggle('active');
+        
     });
 
     const boxes = document.querySelectorAll('.box');
