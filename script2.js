@@ -32,3 +32,17 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('scroll', showOnScroll);
     showOnScroll();
 });
+function toggleContent() {
+    const infoSection = document.querySelector('.section-info');
+    const button = document.querySelector('.read-more-btn');
+    
+    // Toggle visibility of the content
+    if (infoSection.style.display === 'block') {
+      infoSection.style.display = 'none';
+      button.textContent = 'Baca Cerita';
+    } else {
+      infoSection.style.display = 'block';
+      button.textContent = 'Tutup';
+    }
+  }
+  
