@@ -164,22 +164,6 @@ body {
     height: auto;
     border-radius: 10px;
     margin-bottom: 15px;
-}
-
-.section-text {
-    font-size: 1.1rem;
-    text-align: center;
-    color: #000000;
-    font-weight: 300;
-    line-height: 1.6;
-    max-width: 700px;
-    margin: 0 auto;
-}
-.section-image {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 15px;
 
 }
 
@@ -237,6 +221,7 @@ body {
     font-size: 16px;
     color: #ffffff;
   }
+  
 
 /* Media Queries for Mobile */
 @media (max-width: 768px) {
