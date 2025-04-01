@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Custom Properties */
+        :root {
+            --primary: #2F3C7E;
+            --secondary: #FBEAEB;
+            --accent: #FF6B6B;
+            --text: #2D2D2D;
+            --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #f8f9fd 0%, #e6e9f2 100%);
+            min-height: 100vh;
+            display: grid;
+            place-items: center;
+            padding: 1rem;
+            color: var(--text);
+        }
+
+        .profile-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 480px;
+            padding: 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .profile-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--primary);
+            padding: 4px;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .meta-info {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .details-section {
+            margin: 2rem 0;
+        }
+
+        .detail-card {
+            display: flex;
+            align-items: center;
+            background: var(--secondary);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            transition: var(--transition);
+        }
+
+        .detail-card:hover {
+            transform: translateX(8px);
+        }
+
+        .detail-icon {
+            font-size: 1.4rem;
+            color: var(--primary);
+            width: 40px;
+            text-align: center;
+            margin-right: 1rem;
+        }
+
+        .detail-content h3 {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 0.25rem;
+        }
+
+        .detail-content p {
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            transition: var(--transition);
+        }
+
+        .social-link i {
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .social-link span {
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .instagram { background: #E1306C; }
+        .twitter { background: #1DA1F2; }
+        .threads { background: #000; }
+        .github { background: #333; }
+
+        @media (hover: hover) {
+            .social-link:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-container {
+                padding: 1.5rem;
+            }
+            
+            .social-links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="avatar">
+                <img src="1.jpg" alt="Profile Picture">
+            </div>
+            <h1 class="name">Muhammad Rizky Ardiansyah</h1>
+            <p class="meta-info">Pelajar SMA</p>
+        </div>
+
+        <div class="details-section">
+            <div class="detail-card">
+                <i class="fas fa-user-graduate detail-icon"></i>
+                <div class="detail-content">
+                    <h3>Kelas</h3>
+                    <p>X-1</p>
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <i class="fas fa-school detail-icon"></i>
+                <div class="detail-content">
+                    <h3>Sekolah</h3>
+                    <p>SMAN 3 Garut</p>
+                </div>
+            </div>
+
+            <div class="detail-card">
+                <i class="fas fa-palette detail-icon"></i>
+                <div class="detail-content">
+                    <h3>Hobi</h3>
+                    <p>Programming, Musik, Olahraga</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.instagram.com/rizky_ardiansyah2627/" class="social-link instagram">
+                <i class="fab fa-instagram"></i>
+                <span>Instagram</span>
+            </a>
+            <a href="https://x.com/Behind_Rz" class="social-link twitter">
+                <i class="fab fa-twitter"></i>
+                <span>Twitter</span>
+            </a>
+            <a href="https://github.com/BehindR" class="social-link github">
+                <i class="fab fa-github"></i>
+                <span>GitHub</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
