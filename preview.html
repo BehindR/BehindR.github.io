@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preview PDF</title>
+  <style>
+    body { margin: 0; }
+    iframe { width: 100%; height: 100vh; border: none; }
+  </style>
+</head>
+<body>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const fileUrl = params.get("file");
+
+  if (fileUrl) {
+    // Gunakan Google Docs Viewer
+    const viewerUrl = `https://docs.google.com/viewer?url=${encodeURIComponent(fileUrl)}&embedded=true`;
+    document.write(`<iframe src="${viewerUrl}"></iframe>`);
+  } else {
+    document.write("<h2 style='text-align:center'>File tidak ditemukan</h2>");
+  }
+</script>
+
+</body>
+</html>
