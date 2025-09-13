@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pernyataan Tanda Tangan</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 25px;
+      max-width: 500px;
+      width: 100%;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    h2 {
+      color: #2c3e50;
+      margin-bottom: 15px;
+    }
+    .signature-img {
+      max-width: 250px;
+      margin: 15px auto;
+      display: block;
+    }
+    .info {
+      margin: 20px 0;
+      text-align: left;
+      line-height: 1.6;
+    }
+    .info p {
+      margin: 5px 0;
+    }
+    .highlight {
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 13px;
+      color: #555;
+      border-top: 1px solid #eee;
+      padding-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Pernyataan Tanda Tangan Digital</h2>
+
+    <!-- Ganti src dengan foto tanda tangan asli kamu -->
+    <img src="ttd.png" alt="Tanda Tangan" class="signature-img">
+
+    <div class="info">
+      <p>Nama Lengkap: <span class="highlight">Muhammad Rizky Ardiansyah</span></p>
+      <p>Kelas: <span class="highlight">XI-IPA 2</span></p>
+      <p>Nama Dokumen: <span id="docname" class="highlight"></span></p>
+    </div>
+
+    <div class="footer">
+      <p>Dokumen ini dinyatakan sah dan benar telah ditandatangani oleh</p> 
+        <p><span class="highlight">Muhammad Rizky Ardiansyah</span>.</p>
+    </div>
+  </div>
+
+  <script>
+    
+
+    // Ambil nama dokumen dari URL (parameter ?doc=)
+    const urlParams = new URLSearchParams(window.location.search);
+    const docName = urlParams.get("doc") || "Tidak ada nama dokumen";
+    document.getElementById("docname").textContent = decodeURIComponent(docName.replace(/_/g, " "));
+  </script>
+</body>
+</html>
