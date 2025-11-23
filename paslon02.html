@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kotak Saran Digital OSIS</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --secondary: #2c3e50;
+            --light: #ecf0f1;
+            --accent: #1abc9c;
+        }
+
+        body {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .logo-placeholder {
+            width: 100px;
+            height: 100px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary);
+            font-size: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .logo-placeholder img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        label i {
+            color: var(--primary);
+            width: 20px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background-color: #f9f9f9;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn {
+            background: linear-gradient(to right, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            padding: 16px 25px;
+            font-size: 1.1rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.6);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .info-section {
+            background-color: #f8fafc;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .info-section h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-section h2 i {
+            color: var(--accent);
+        }
+
+        .info-section p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            flex: 1 1 calc(50% - 15px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature:hover {
+            transform: translateY(-3px);
+        }
+
+        .feature i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            font-weight: 500;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f1f8ff;
+            color: #6c757d;
+            font-size: 0.9rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            color: var(--primary);
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary);
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .features {
+                flex-direction: column;
+            }
+        }
+
+        /* Animasi sederhana */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-group, .info-section, .feature {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .btn { animation-delay: 0.5s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo-container">
+                <div class="logo-placeholder">
+                    <img src="logo.jpg" alt="">
+                </div>
+            </div>
+            <h1>Kotak Saran Digital</h1>
+            <p>Suara Anda Membuat Perubahan</p>
+        </header>
+        
+        <div class="content">
+            <div class="form-section">
+                <form id="suggestionForm">
+                    <div class="form-group">
+                        <label for="name"><i class="fas fa-user"></i> Nama (Opsional)</label>
+                        <input type="text" id="name" placeholder="Masukkan nama Anda">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category"><i class="fas fa-tag"></i> Kategori Saran</label>
+                        <select id="category">
+                            <option value="" disabled selected>Pilih kategori</option>
+                            <option value="academic">Akademik</option>
+                            <option value="extracurricular">Ekstrakurikuler</option>
+                            <option value="facility">Fasilitas Sekolah</option>
+                            <option value="event">Kegiatan Sekolah</option>
+                            <option value="other">Lainnya</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="suggestion"><i class="fas fa-edit"></i> Saran/Kritik/Masukan</label>
+                        <textarea id="suggestion" placeholder="Tulis saran, kritik, atau masukan Anda di sini..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Kirim Saran</button>
+                </form>
+            </div>
+            
+            <div class="info-section">
+                <h2><i class="fas fa-info-circle"></i> Informasi Penting</h2>
+                <p>Setiap saran yang Anda berikan akan menjadi bahan pertimbangan penting bagi kami untuk menciptakan lingkungan sekolah yang lebih nyaman, lebih aktif, dan lebih mendukung perkembangan siswa. Suara Anda bukan hanya didengar, tapi juga menjadi dasar perubahan nyata.</p>
+                
+                <div class="features">
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>Anonimitas Terjaga</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-double"></i>
+                        <p>Transparansi</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-users"></i>
+                        <p>Dari Siswa Untuk Siswa</p>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-lightbulb"></i>
+                        <p>Ide Dihargai</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 Rancangan Program Kerja PASLON 02 OSIS - Kotak Saran Digital</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('suggestionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const studentClass = document.getElementById('class').value;
+            const category = document.getElementById('category').value;
+            const suggestion = document.getElementById('suggestion').value;
+            
+            if (!studentClass || !category || !suggestion) {
+                alert('Harap lengkapi semua field yang wajib diisi!');
+                return;
+            }
+            
+            // Simulasi pengiriman data
+            const btn = document.querySelector('.btn');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Mengirim...';
+            btn.disabled = true;
+            
+            setTimeout(function() {
+                alert('Terima kasih! Saran Anda telah berhasil dikirim.');
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                // Reset form
+                document.getElementById('suggestionForm').reset();
+            }, 1500);
+        });
+
+        // Fungsi untuk menangani upload logo
+        document.addEventListener('DOMContentLoaded', function() {
+            const logoPlaceholder = document.querySelector('.logo-placeholder');
+            
+            // Jika ingin mengaktifkan upload logo, hapus komentar di bawah
+            /*
+            logoPlaceholder.addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                
+                input.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            logoPlaceholder.innerHTML = `<img src="${event.target.result}" alt="Logo OSIS">`;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                
+                input.click();
+            });
+            */
+        });
+    </script>
+</body>
+</html>
