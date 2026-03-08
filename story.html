@@ -336,9 +336,35 @@
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
+    .home-btn{
+position:fixed;
+top:20px;
+left:20px;
+width:45px;
+height:45px;
+border-radius:50%;
+background:rgba(255,255,255,0.9);
+display:flex;
+align-items:center;
+justify-content:center;
+box-shadow:0 6px 15px rgba(0,0,0,0.15);
+color:#2c3e50;
+text-decoration:none;
+font-size:18px;
+transition:all 0.25s ease;
+z-index:999;
+}
+
+.home-btn:hover{
+transform:translateY(-3px) scale(1.05);
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
   </style>
 </head>
 <body>
+  <a href="../" class="home-btn">
+<i class="fas fa-home"></i>
+</a>
   <div class="container">
     <header>
       <h1>Selamat Datang</h1>
@@ -506,6 +532,7 @@
   </script>
 </body>
 </html>
+
 
 
 
