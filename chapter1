@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cerita kita. — pameran momen</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #fdf9f4;
+            --card-bg: #ffffff;
+            --text-primary: #2d2a26;
+            --text-secondary: #6b6560;
+            --text-muted: #9c958c;
+            --accent: #c2956c;
+            --accent-soft: #e8d5c4;
+            --accent-rose: #d4b8b0;
+            --border: #e8e3dc;
+            --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.11);
+            --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.14);
+            --transition-smooth: 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* ============ DECORATIVE BACKGROUND ELEMENTS ============ */
+        .decor-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .decor-shape {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.04;
+            filter: blur(40px);
+            animation: floatShape 20s ease-in-out infinite;
+        }
+
+        .decor-shape:nth-child(1) {
+            width: 320px;
+            height: 320px;
+            background: #c2956c;
+            top: -5%;
+            left: -8%;
+            animation-delay: 0s;
+            animation-duration: 22s;
+        }
+
+        .decor-shape:nth-child(2) {
+            width: 240px;
+            height: 240px;
+            background: #d4b8b0;
+            top: 40%;
+            right: -6%;
+            animation-delay: -7s;
+            animation-duration: 18s;
+        }
+
+        .decor-shape:nth-child(3) {
+            width: 200px;
+            height: 200px;
+            background: #c2956c;
+            bottom: 10%;
+            left: 15%;
+            animation-delay: -13s;
+            animation-duration: 24s;
+        }
+
+        .decor-shape:nth-child(4) {
+            width: 180px;
+            height: 180px;
+            background: #e8d5c4;
+            top: 55%;
+            left: 50%;
+            animation-delay: -5s;
+            animation-duration: 20s;
+        }
+
+        @keyframes floatShape {
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+            25% {
+                transform: translate(30px, -40px) scale(1.15);
+            }
+            50% {
+                transform: translate(-15px, -20px) scale(0.9);
+            }
+            75% {
+                transform: translate(-25px, 30px) scale(1.1);
+            }
+        }
+
+        /* ============ NAVIGATION ============ */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: transparent;
+            transition: all var(--transition-smooth);
+            mix-blend-mode: normal;
+        }
+
+        .nav.scrolled {
+            background: rgba(253, 249, 244, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 1px 20px rgba(0, 0, 0, 0.04);
+            padding: 14px 40px;
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            font-style: italic;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+            text-decoration: none;
+            transition: color var(--transition-smooth);
+        }
+
+        .nav-logo:hover {
+            color: var(--accent);
+        }
+
+        .nav-logo .dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-left: 2px;
+            vertical-align: middle;
+            position: relative;
+            top: -8px;
+            animation: dotPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes dotPulse {
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.8);
+                opacity: 1;
+            }
+        }
+
+        .nav-hint {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* ============ HERO SECTION ============ */
+        .hero {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 24px;
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 20px;
+            animation: fadeUp 0.9s ease-out forwards;
+            opacity: 0;
+            animation-delay: 0.15s;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3.2rem, 7vw, 6.5rem);
+            font-weight: 600;
+            font-style: italic;
+            color: var(--text-primary);
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            margin-bottom: 16px;
+            animation: fadeUp 0.9s ease-out forwards;
+            opacity: 0;
+            animation-delay: 0.3s;
+        }
+
+        .hero-title .accent-dot {
+            color: var(--accent);
+            font-style: normal;
+        }
+
+        .hero-subtitle {
+            font-size: 1.05rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            max-width: 480px;
+            letter-spacing: 0.02em;
+            animation: fadeUp 0.9s ease-out forwards;
+            opacity: 0;
+            animation-delay: 0.5s;
+        }
+
+        .hero-line {
+            width: 50px;
+            height: 2px;
+            background: var(--accent-soft);
+            margin: 28px auto 0;
+            border-radius: 1px;
+            animation: fadeUp 0.9s ease-out forwards, lineExtend 1.2s ease-out 0.6s forwards;
+            opacity: 0;
+            animation-delay: 0.65s;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes lineExtend {
+            from {
+                width: 50px;
+            }
+            to {
+                width: 90px;
+            }
+        }
+
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            animation: fadeUp 0.9s ease-out forwards;
+            opacity: 0;
+            animation-delay: 1s;
+            pointer-events: auto;
+            cursor: pointer;
+        }
+
+        .hero-scroll-indicator span {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+        }
+
+        .hero-scroll-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: scrollBounce 1.8s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateY(14px);
+                opacity: 1;
+            }
+        }
+
+        /* ============ GALLERY SECTION ============ */
+        .gallery-section {
+            position: relative;
+            z-index: 1;
+            padding: 20px 40px 80px;
+            max-width: 1300px;
+            margin: 0 auto;
+        }
+
+        .gallery-section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .gallery-section-header .small-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--accent);
+            font-weight: 500;
+            margin-bottom: 6px;
+        }
+
+        .gallery-section-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 36px;
+            align-items: start;
+        }
+
+        /* ============ POLAROID CARD ============ */
+        .polaroid {
+            background: var(--card-bg);
+            border-radius: var(--radius-sm);
+            padding: 14px 14px 38px 14px;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all var(--transition-bounce);
+            position: relative;
+            will-change: transform, box-shadow;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Varied rotations for organic feel */
+        .polaroid:nth-child(3n+1) {
+            transform: rotate(-2.2deg);
+        }
+        .polaroid:nth-child(3n+2) {
+            transform: rotate(1.6deg);
+        }
+        .polaroid:nth-child(3n+3) {
+            transform: rotate(-0.9deg);
+        }
+        .polaroid:nth-child(5n+2) {
+            transform: rotate(2.4deg);
+        }
+        .polaroid:nth-child(7n+4) {
+            transform: rotate(-1.8deg);
+        }
+
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.04) translateY(-10px) !important;
+            box-shadow: var(--shadow-xl);
+            z-index: 10;
+        }
+
+        .polaroid:active {
+            transform: rotate(0deg) scale(1.01) translateY(-4px) !important;
+            transition: all 0.15s ease-out;
+        }
+
+        .polaroid-image-wrap {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 3px;
+            position: relative;
+            aspect-ratio: 4/5;
+            background: #f5f2ed;
+        }
+
+        .polaroid:nth-child(3n+2) .polaroid-image-wrap {
+            aspect-ratio: 5/4;
+        }
+        .polaroid:nth-child(4n+1) .polaroid-image-wrap {
+            aspect-ratio: 3/4;
+        }
+        .polaroid:nth-child(5n+3) .polaroid-image-wrap {
+            aspect-ratio: 4/5;
+        }
+
+        .polaroid-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .polaroid:hover .polaroid-image-wrap img {
+            transform: scale(1.06);
+        }
+
+        .polaroid-note {
+            font-family: 'Caveat', cursive;
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 16px;
+            line-height: 1.2;
+            transition: color var(--transition-smooth);
+            letter-spacing: 0.01em;
+        }
+
+        .polaroid:hover .polaroid-note {
+            color: var(--accent);
+        }
+
+        /* Glare effect on hover */
+        .polaroid::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: var(--radius-sm);
+            background: linear-gradient(135deg,
+                    rgba(255, 255, 255, 0) 40%,
+                    rgba(255, 255, 255, 0.25) 50%,
+                    rgba(255, 255, 255, 0) 60%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .polaroid:hover::after {
+            opacity: 1;
+        }
+
+        /* ============ REVEAL ON SCROLL ============ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Staggered delays for polaroids */
+        .polaroid.reveal:nth-child(1) {
+            transition-delay: 0s;
+        }
+        .polaroid.reveal:nth-child(2) {
+            transition-delay: 0.07s;
+        }
+        .polaroid.reveal:nth-child(3) {
+            transition-delay: 0.14s;
+        }
+        .polaroid.reveal:nth-child(4) {
+            transition-delay: 0.05s;
+        }
+        .polaroid.reveal:nth-child(5) {
+            transition-delay: 0.12s;
+        }
+        .polaroid.reveal:nth-child(6) {
+            transition-delay: 0.19s;
+        }
+        .polaroid.reveal:nth-child(7) {
+            transition-delay: 0.08s;
+        }
+        .polaroid.reveal:nth-child(8) {
+            transition-delay: 0.16s;
+        }
+        .polaroid.reveal:nth-child(9) {
+            transition-delay: 0.22s;
+        }
+
+        /* ============ QUOTE SECTION ============ */
+        .quote-section {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 70px 24px 90px;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .quote-mark {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            line-height: 0.4;
+            color: var(--accent-soft);
+            user-select: none;
+            pointer-events: none;
+        }
+
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+            font-weight: 500;
+            font-style: italic;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+            line-height: 1.5;
+            margin: 16px 0 20px;
+        }
+
+        .quote-author {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.06em;
+            font-weight: 400;
+        }
+
+        .quote-divider {
+            width: 40px;
+            height: 2px;
+            background: var(--accent-soft);
+            margin: 20px auto;
+            border-radius: 1px;
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 40px 24px 50px;
+            border-top: 1px solid var(--border);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .footer-message {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--text-secondary);
+            letter-spacing: -0.01em;
+            margin-bottom: 6px;
+        }
+
+        .footer-sub {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            letter-spacing: 0.04em;
+        }
+
+        .footer-heart {
+            display: inline-block;
+            color: var(--accent-rose);
+            animation: heartBeat 1.3s ease-in-out infinite;
+            font-size: 1.1rem;
+            margin: 0 3px;
+        }
+
+        @keyframes heartBeat {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            15% {
+                transform: scale(1.25);
+            }
+            30% {
+                transform: scale(1);
+            }
+            45% {
+                transform: scale(1.2);
+            }
+            60% {
+                transform: scale(1);
+            }
+        }
+
+        /* ============ LIGHTBOX ============ */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(20, 16, 12, 0.92);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            cursor: pointer;
+        }
+
+        .lightbox-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 88vw;
+            max-height: 85vh;
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: default;
+        }
+
+        .lightbox-overlay.active .lightbox-content {
+            transform: scale(1);
+        }
+
+        .lightbox-content img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-xl);
+            display: block;
+        }
+
+        .lightbox-caption {
+            text-align: center;
+            color: #d5cfc8;
+            font-family: 'Caveat', cursive;
+            font-size: 1.2rem;
+            margin-top: 14px;
+            letter-spacing: 0.02em;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -44px;
+            right: 0;
+            background: none;
+            border: none;
+            color: #c5bdb4;
+            font-size: 1.8rem;
+            cursor: pointer;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all var(--transition-smooth);
+            line-height: 1;
+            font-family: 'Inter', sans-serif;
+            font-weight: 300;
+        }
+
+        .lightbox-close:hover {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #d5cfc8;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all var(--transition-smooth);
+            z-index: 2;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .lightbox-nav:hover {
+            background: rgba(255, 255, 255, 0.14);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .lightbox-nav.prev {
+            left: -56px;
+        }
+        .lightbox-nav.next {
+            right: -56px;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1024px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 28px;
+            }
+            .gallery-section {
+                padding: 20px 28px 60px;
+            }
+            .polaroid:nth-child(3n+1),
+            .polaroid:nth-child(3n+2),
+            .polaroid:nth-child(3n+3),
+            .polaroid:nth-child(5n+2),
+            .polaroid:nth-child(7n+4) {
+                transform: rotate(-1.2deg);
+            }
+            .polaroid:nth-child(even) {
+                transform: rotate(1.4deg);
+            }
+            .lightbox-nav.prev {
+                left: 12px;
+            }
+            .lightbox-nav.next {
+                right: 12px;
+            }
+            .lightbox-close {
+                top: -42px;
+                right: 8px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 16px;
+            }
+            .gallery-section {
+                padding: 10px 14px 50px;
+            }
+            .polaroid {
+                padding: 10px 10px 26px 10px;
+            }
+            .polaroid-note {
+                font-size: 0.85rem;
+                margin-top: 10px;
+            }
+            .polaroid:nth-child(3n+1),
+            .polaroid:nth-child(3n+2),
+            .polaroid:nth-child(3n+3),
+            .polaroid:nth-child(5n+2),
+            .polaroid:nth-child(7n+4),
+            .polaroid:nth-child(even) {
+                transform: rotate(-1deg);
+            }
+            .polaroid:nth-child(odd) {
+                transform: rotate(1.2deg);
+            }
+            .nav {
+                padding: 14px 18px;
+            }
+            .nav.scrolled {
+                padding: 10px 18px;
+            }
+            .nav-hint {
+                display: none;
+            }
+            .hero-title {
+                font-size: clamp(2.4rem, 8vw, 3.6rem);
+            }
+            .hero-subtitle {
+                font-size: 0.9rem;
+                padding: 0 10px;
+            }
+            .quote-text {
+                font-size: 1.2rem;
+            }
+            .lightbox-content {
+                max-width: 94vw;
+                max-height: 78vh;
+            }
+            .lightbox-nav.prev {
+                left: 4px;
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .lightbox-nav.next {
+                right: 4px;
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .lightbox-close {
+                top: -38px;
+                right: 0;
+                font-size: 1.5rem;
+                width: 34px;
+                height: 34px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
+            }
+            .polaroid {
+                padding: 8px 8px 20px 8px;
+            }
+            .polaroid-note {
+                font-size: 0.75rem;
+                margin-top: 8px;
+            }
+            .gallery-section {
+                padding: 8px 8px 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ DECORATIVE SHAPES ============ -->
+    <div class="decor-shapes" aria-hidden="true">
+        <div class="decor-shape"></div>
+        <div class="decor-shape"></div>
+        <div class="decor-shape"></div>
+        <div class="decor-shape"></div>
+    </div>
+
+    <!-- ============ NAVIGATION ============ -->
+    <nav class="nav" id="nav">
+        <a href="#" class="nav-logo">Chapter 1 (Rizky & Azka)<span class="dot"></span></a>
+        <span class="nav-hint">✦ Gallery</span>
+    </nav>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero">
+        <p class="hero-eyebrow">— Lifetime Memories —</p>
+        <h1 class="hero-title">Muhammad Rizky<br>Azka Quena<span class="accent-dot">.</span></h1>
+        <p class="hero-subtitle">Momen keseharian.</p>
+        <div class="hero-line"></div>
+        <div class="hero-scroll-indicator" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">
+            <span>jelajahi</span>
+            <div class="hero-scroll-dot"></div>
+        </div>
+    </section>
+
+    <!-- ============ GALLERY ============ -->
+    <section class="gallery-section" id="gallery">
+        <div class="gallery-section-header reveal">
+            <p class="small-label">— galeri —</p>
+            <h2>bingkai kenangan</h2>
+        </div>
+
+        <div class="gallery-grid">
+
+            <!-- Card 1 -->
+            <div class="polaroid reveal" data-caption="Ini pertama kali kita foto bareng">
+                <div class="polaroid-image-wrap">
+                    <img src="fto_1.jpg" alt="Momen bersama" loading="lazy">
+                </div>
+                <p class="polaroid-note">Foto bareng pertama kita</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="polaroid reveal" data-caption="Azka mode racing">
+                <div class="polaroid-image-wrap">
+                    <img src="fto_2.png" alt="Momen bersama" loading="lazy">
+                </div>
+                <p class="polaroid-note">Azka mode racing</p>
+            </div>
+
+            <!--
+            <div class="polaroid reveal" data-caption="kopi & obrolan hangat">
+                <div class="polaroid-image-wrap">
+                    <img src="https://picsum.photos/500/650?random=33" alt="Momen bersama" loading="lazy">
+                </div>
+                <p class="polaroid-note">kopi & obrolan hangat ☕</p>
+            </div>
+
+            
+            <div class="polaroid reveal" data-caption="jalan-jalan santai">
+                <div class="polaroid-image-wrap">
+                    <img src="https://picsum.photos/550/440?random=44" alt="Momen bersama" loading="lazy">
+                </div>
+                <p class="polaroid-note">jalan-jalan santai</p>
+            </div>
+
+
+            <div class="polaroid reveal" data-caption="malam penuh bintang">
+                <div class="polaroid-image-wrap">
+                    <img src="https://picsum.photos/500/700?random=55" alt="Momen bersama" loading="lazy">
+                </div>
+                <p class="polaroid-note">malam penuh bintang 🌙</p>
+            </div>
+
+
+            <div class="polaroid reveal" data-caption="hari yang tenang">
+                <div class="polaroid-image-wrap">
+                    <img src="https://picsum.photos/500/580?random=66" alt="Momen bersama" loading="lazy">
+                </div>
+                <p class="polaroid-note">hari yang tenang</p>
+            </div>
+
+            
+            <div class="polaroid reveal" data-caption="petualangan kecil">
+                <div class="polaroid-image-wrap">
+                    <img src="https://picsum.photos/560/420?random=77" alt="Momen bersama" loading="lazy">
+                </div>
+                <p class="polaroid-note">petualangan kecil kita</p>
+            </div>
+
+
+            <div class="polaroid reveal" data-caption="musim hujan">
+                <div class="polaroid-image-wrap">
+                    <img src="https://picsum.photos/500/630?random=88" alt="Momen bersama" loading="lazy">
+                </div>
+                <p class="polaroid-note">musim hujan bersamamu ☔</p>
+            </div>
+
+            
+            <div class="polaroid reveal" data-caption="cahaya pagi">
+                <div class="polaroid-image-wrap">
+                    <img src="https://picsum.photos/500/600?random=99" alt="Momen bersama" loading="lazy">
+                </div>
+                <p class="polaroid-note">cahaya pagi yang hangat</p>
+            </div>
+        -->
+        </div>
+    </section>
+
+    <!-- ============ QUOTE SECTION ============ -->
+    <section class="quote-section reveal">
+        <div class="quote-mark">&ldquo;</div>
+        <p class="quote-text">
+            Di antara ribuan momen yang pernah tercipta,<br>yang paling berharga tetaplah momen bersamamu.
+        </p>
+        <div class="quote-divider"></div>
+        <p class="quote-author">— Lifetime Memories</p>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+        <p class="footer-message">terima kasih telah menjadi bagian dari cerita ini</p>
+        <p class="footer-sub">dibuat dengan <span class="footer-heart">♥</span> untuk kenangan kita</p>
+    </footer>
+
+    <!-- ============ LIGHTBOX OVERLAY ============ -->
+    <div class="lightbox-overlay" id="lightboxOverlay">
+        <div class="lightbox-content" id="lightboxContent">
+            <button class="lightbox-close" id="lightboxClose" aria-label="Tutup">&times;</button>
+            <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Sebelumnya">‹</button>
+            <img src="" alt="Momen" id="lightboxImg">
+            <p class="lightbox-caption" id="lightboxCaption"></p>
+            <button class="lightbox-nav next" id="lightboxNext" aria-label="Selanjutnya">›</button>
+        </div>
+    </div>
+
+    <!-- ============ SCRIPTS ============ -->
+    <script>
+        (function() {
+            // ===== NAV SCROLL EFFECT =====
+            const nav = document.getElementById('nav');
+            let lastScrollY = 0;
+
+            function updateNav() {
+                const scrollY = window.scrollY;
+                if (scrollY > 60) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+                lastScrollY = scrollY;
+                requestAnimationFrame(() => {});
+            }
+
+            window.addEventListener('scroll', updateNav, { passive: true });
+            updateNav();
+
+            // ===== INTERSECTION OBSERVER FOR REVEAL =====
+            const revealElements = document.querySelectorAll('.reveal');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -40px 0px',
+                threshold: 0.15,
+            };
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('revealed');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // Also observe polaroids directly
+            const polaroids = document.querySelectorAll('.polaroid.reveal');
+            polaroids.forEach(el => revealObserver.observe(el));
+
+            // ===== LIGHTBOX =====
+            const lightboxOverlay = document.getElementById('lightboxOverlay');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            const lightboxClose = document.getElementById('lightboxClose');
+            const lightboxPrev = document.getElementById('lightboxPrev');
+            const lightboxNext = document.getElementById('lightboxNext');
+            const lightboxContent = document.getElementById('lightboxContent');
+
+            let currentPolaroids = [];
+            let currentIndex = 0;
+
+            // Collect all polaroid cards
+            function getPolaroids() {
+                return Array.from(document.querySelectorAll('.polaroid'));
+            }
+
+            // Open lightbox
+            function openLightbox(index) {
+                currentPolaroids = getPolaroids();
+                currentIndex = index;
+                const polaroid = currentPolaroids[currentIndex];
+                const img = polaroid.querySelector('img');
+                const caption = polaroid.getAttribute('data-caption') ||
+                    polaroid.querySelector('.polaroid-note')?.textContent?.trim() || '';
+
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                lightboxCaption.textContent = caption;
+                lightboxOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                // Update nav visibility
+                updateLightboxNav();
+            }
+
+            function closeLightbox() {
+                lightboxOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+                lightboxImg.src = '';
+            }
+
+            function goToPrev(e) {
+                e.stopPropagation();
+                if (currentPolaroids.length === 0) return;
+                currentIndex = (currentIndex - 1 + currentPolaroids.length) % currentPolaroids.length;
+                updateLightboxImage();
+            }
+
+            function goToNext(e) {
+                e.stopPropagation();
+                if (currentPolaroids.length === 0) return;
+                currentIndex = (currentIndex + 1) % currentPolaroids.length;
+                updateLightboxImage();
+            }
+
+            function updateLightboxImage() {
+                const polaroid = currentPolaroids[currentIndex];
+                const img = polaroid.querySelector('img');
+                const caption = polaroid.getAttribute('data-caption') ||
+                    polaroid.querySelector('.polaroid-note')?.textContent?.trim() || '';
+
+                // Quick fade effect
+                lightboxImg.style.opacity = '0';
+                lightboxCaption.style.opacity = '0';
+
+                setTimeout(() => {
+                    lightboxImg.src = img.src;
+                    lightboxImg.alt = img.alt;
+                    lightboxCaption.textContent = caption;
+                    lightboxImg.style.opacity = '1';
+                    lightboxCaption.style.opacity = '1';
+                }, 180);
+
+                updateLightboxNav();
+            }
+
+            function updateLightboxNav() {
+                if (currentPolaroids.length <= 1) {
+                    lightboxPrev.style.display = 'none';
+                    lightboxNext.style.display = 'none';
+                } else {
+                    lightboxPrev.style.display = 'flex';
+                    lightboxNext.style.display = 'flex';
+                }
+            }
+
+            // Add transition for smooth image swap
+            lightboxImg.style.transition = 'opacity 0.2s ease';
+            lightboxCaption.style.transition = 'opacity 0.2s ease';
+
+            // Event listeners for polaroids
+            function attachPolaroidListeners() {
+                const allPolaroids = document.querySelectorAll('.polaroid');
+                allPolaroids.forEach((polaroid, index) => {
+                    polaroid.addEventListener('click', () => {
+                        openLightbox(index);
+                    });
+                });
+            }
+
+            attachPolaroidListeners();
+
+            // Lightbox controls
+            lightboxClose.addEventListener('click', (e) => {
+                e.stopPropagation();
+                closeLightbox();
+            });
+
+            lightboxOverlay.addEventListener('click', (e) => {
+                if (e.target === lightboxOverlay) {
+                    closeLightbox();
+                }
+            });
+
+            lightboxPrev.addEventListener('click', goToPrev);
+            lightboxNext.addEventListener('click', goToNext);
+
+            // Prevent lightbox content click from closing
+            lightboxContent.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+
+            // Keyboard controls
+            document.addEventListener('keydown', (e) => {
+                if (!lightboxOverlay.classList.contains('active')) return;
+
+                switch (e.key) {
+                    case 'Escape':
+                        closeLightbox();
+                        break;
+                    case 'ArrowLeft':
+                        goToPrev(e);
+                        break;
+                    case 'ArrowRight':
+                        goToNext(e);
+                        break;
+                    default:
+                        break;
+                }
+            });
+
+            // ===== SMOOTH SCROLL FOR SCROLL INDICATOR =====
+            const scrollIndicator = document.querySelector('.hero-scroll-indicator');
+            if (scrollIndicator) {
+                scrollIndicator.addEventListener('click', () => {
+                    const gallery = document.getElementById('gallery');
+                    if (gallery) {
+                        gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            }
+
+            // ===== RE-OBSERVE ON RESIZE (for responsive layouts) =====
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    // Re-attach polaroid listeners in case DOM changed
+                    attachPolaroidListeners();
+                    // Re-observe reveal elements
+                    const allReveal = document.querySelectorAll('.reveal:not(.revealed)');
+                    allReveal.forEach(el => revealObserver.observe(el));
+                }, 300);
+            });
+
+            console.log('%c✨ cerita kita. — pameran momen %c%s',
+                'font-family: "Playfair Display", serif; font-size: 1.4em; font-style: italic; color: #c2956c;',
+                'font-family: Inter, sans-serif; font-size: 0.8em; color: #9c958c;',
+                '| Ganti gambar dengan foto kalian sendiri ya! 📸');
+        })();
+    </script>
+</body>
+</html>
