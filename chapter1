@@ -1200,7 +1200,7 @@
                 }, 300);
             });
 
-            console.log('%c✨ cerita kita. — pameran momen %c%s',
+            console.log('%c✨ cerita kitaa. — pameran momen %c%s',
                 'font-family: "Playfair Display", serif; font-size: 1.4em; font-style: italic; color: #c2956c;',
                 'font-family: Inter, sans-serif; font-size: 0.8em; color: #9c958c;',
                 '| Ganti gambar dengan foto kalian sendiri ya! 📸');
