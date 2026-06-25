@@ -1,1 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu ❤️</title>
 
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI', sans-serif;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+}
+
+.page{
+    position:absolute;
+    width:100%;
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+    transition:1s;
+}
+
+h1{
+    color:white;
+    font-size:3rem;
+    margin-bottom:20px;
+    text-shadow:0 0 15px rgba(255,255,255,.5);
+}
+
+p{
+    color:white;
+    max-width:700px;
+    font-size:1.2rem;
+    line-height:1.8;
+}
+
+.love-btn{
+    margin-top:35px;
+    width:90px;
+    height:90px;
+    border:none;
+    border-radius:50%;
+    background:white;
+    color:#ff4f81;
+    font-size:2.5rem;
+    cursor:pointer;
+    box-shadow:0 0 30px rgba(255,255,255,.8);
+    transition:.3s;
+}
+
+.love-btn:hover{
+    transform:scale(1.15);
+}
+
+#page2{
+    opacity:0;
+    pointer-events:none;
+}
+
+.photo{
+    width:320px;
+    max-width:90%;
+    border-radius:25px;
+    border:8px solid white;
+    box-shadow:0 0 40px rgba(255,255,255,.8);
+    animation:romanticPhoto 2s ease forwards;
+}
+
+@keyframes romanticPhoto{
+    from{
+        opacity:0;
+        transform:scale(.5);
+    }
+    to{
+        opacity:1;
+        transform:scale(1);
+    }
+}
+
+.message{
+    margin-top:25px;
+    color:white;
+    font-size:1.4rem;
+    text-shadow:0 0 10px rgba(255,255,255,.7);
+}
+
+.heart{
+    position:absolute;
+    color:white;
+    font-size:24px;
+    animation:float 6s linear forwards;
+}
+
+@keyframes float{
+    from{
+        transform:translateY(100vh);
+        opacity:1;
+    }
+    to{
+        transform:translateY(-100px);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="page" id="page1">
+    <h1> Haloo Cantikkkk</h1>
+
+    <p>
+        Klik donggg
+    </p>
+
+    <button class="love-btn" onclick="showPhoto()">
+        ❤️
+    </button>
+</div>
+
+<div class="page" id="page2">
+    <img src="fto_1.jpg" class="photo">
+    
+    <div class="message">
+        I Love U sayanggg. ❤️❤️❤️❤️🖕
+    </div>
+</div>
+
+<script>
+function showPhoto(){
+    document.getElementById('page1').style.opacity='0';
+    document.getElementById('page1').style.pointerEvents='none';
+
+    document.getElementById('page2').style.opacity='1';
+    document.getElementById('page2').style.pointerEvents='auto';
+
+    createHearts();
+}
+
+function createHearts(){
+    setInterval(()=>{
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.innerHTML='🖕';
+
+        heart.style.left=Math.random()*100+'vw';
+        heart.style.fontSize=(20+Math.random()*40)+'px';
+
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{
+            heart.remove();
+        },6000);
+
+    },200);
+}
+</script>
+
+</body>
+</html>
