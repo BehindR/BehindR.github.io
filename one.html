@@ -3,33 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>cerita kita. — pameran momen</title>
-
-    <!-- Google Fonts -->
+    <title>ARKA - Album Foto</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&family=Caveat:wght@400;500;600&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #fdf9f4;
-            --card-bg: #ffffff;
-            --text-primary: #2d2a26;
-            --text-secondary: #6b6560;
-            --text-muted: #9c958c;
-            --accent: #c2956c;
-            --accent-soft: #e8d5c4;
-            --accent-rose: #d4b8b0;
-            --border: #e8e3dc;
-            --shadow-sm: 0 2px 12px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.11);
-            --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.14);
+            --hero-bg-start: #E8E3DA;
+            --hero-bg-mid: #F0EBE1;
+            --hero-bg-end: #DCD7CB;
+            --accent: #B8A99A;
+            --accent-soft: #D1C9BC;
+            --accent-warm: #A8947F;
+            --text-light: #4A4340;
+            --text-dark: #3A3330;
+            --text-muted: #6B6360;
+            --bg-light: #FDFBF7;
+            --bg-white: #FFFFFF;
+            --card-bg: #EFECE5;
+            --border-soft: rgba(0, 0, 0, 0.06);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 6px 24px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.08);
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
             --transition-smooth: 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
             --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            --radius-sm: 6px;
-            --radius-md: 10px;
-            --radius-lg: 16px;
         }
 
         * {
@@ -40,567 +40,268 @@
 
         html {
             scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #C4B5A5 #F5F0EC;
+        }
+        html::-webkit-scrollbar {
+            width: 6px;
+        }
+        html::-webkit-scrollbar-track {
+            background: #F5F0EC;
+        }
+        html::-webkit-scrollbar-thumb {
+            background: #C4B5A5;
+            border-radius: 3px;
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-primary);
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
             line-height: 1.6;
             overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        /* ============ DECORATIVE BACKGROUND ELEMENTS ============ */
-        .decor-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .decor-shape {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.04;
-            filter: blur(40px);
-            animation: floatShape 20s ease-in-out infinite;
-        }
-
-        .decor-shape:nth-child(1) {
-            width: 320px;
-            height: 320px;
-            background: #c2956c;
-            top: -5%;
-            left: -8%;
-            animation-delay: 0s;
-            animation-duration: 22s;
-        }
-
-        .decor-shape:nth-child(2) {
-            width: 240px;
-            height: 240px;
-            background: #d4b8b0;
-            top: 40%;
-            right: -6%;
-            animation-delay: -7s;
-            animation-duration: 18s;
-        }
-
-        .decor-shape:nth-child(3) {
-            width: 200px;
-            height: 200px;
-            background: #c2956c;
-            bottom: 10%;
-            left: 15%;
-            animation-delay: -13s;
-            animation-duration: 24s;
-        }
-
-        .decor-shape:nth-child(4) {
-            width: 180px;
-            height: 180px;
-            background: #e8d5c4;
-            top: 55%;
-            left: 50%;
-            animation-delay: -5s;
-            animation-duration: 20s;
-        }
-
-        @keyframes floatShape {
-            0%,
-            100% {
-                transform: translate(0, 0) scale(1);
-            }
-            25% {
-                transform: translate(30px, -40px) scale(1.15);
-            }
-            50% {
-                transform: translate(-15px, -20px) scale(0.9);
-            }
-            75% {
-                transform: translate(-25px, 30px) scale(1.1);
-            }
-        }
-
-        /* ============ NAVIGATION ============ */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
-            padding: 20px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: transparent;
-            transition: all var(--transition-smooth);
-            mix-blend-mode: normal;
-        }
-
-        .nav.scrolled {
-            background: rgba(253, 249, 244, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 1px 20px rgba(0, 0, 0, 0.04);
-            padding: 14px 40px;
-        }
-
-        .nav-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 600;
-            font-style: italic;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-            text-decoration: none;
-            transition: color var(--transition-smooth);
-        }
-
-        .nav-logo:hover {
-            color: var(--accent);
-        }
-
-        .nav-logo .dot {
-            display: inline-block;
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            margin-left: 2px;
-            vertical-align: middle;
-            position: relative;
-            top: -8px;
-            animation: dotPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes dotPulse {
-            0%,
-            100% {
-                transform: scale(1);
-                opacity: 0.7;
-            }
-            50% {
-                transform: scale(1.8);
-                opacity: 1;
-            }
-        }
-
-        .nav-hint {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            font-weight: 500;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* ============ HERO SECTION ============ */
         .hero {
             position: relative;
-            z-index: 1;
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 40px 24px;
-            pointer-events: none;
+            background: radial-gradient(ellipse at center, var(--hero-bg-mid) 0%, var(--hero-bg-start) 40%, var(--hero-bg-end) 100%);
+            overflow: hidden;
+            isolation: isolate;
         }
 
-        .hero-eyebrow {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: var(--accent);
-            font-weight: 500;
-            margin-bottom: 20px;
-            animation: fadeUp 0.9s ease-out forwards;
+        /* Subtle animated orbs */
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            max-width: 700px;
+            max-height: 700px;
+            background: radial-gradient(circle, rgba(184, 169, 154, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: heroGlow 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            width: 40vw;
+            height: 40vw;
+            max-width: 450px;
+            max-height: 450px;
+            background: radial-gradient(circle, rgba(168, 148, 127, 0.14) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 45%;
+            left: 55%;
+            transform: translate(-50%, -50%);
+            animation: heroGlow 8s ease-in-out 2s infinite reverse;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes heroGlow {
+            0%,
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.7;
+            }
+            33% {
+                transform: translate(-48%, -52%) scale(1.15);
+                opacity: 1;
+            }
+            66% {
+                transform: translate(-52%, -48%) scale(0.9);
+                opacity: 0.5;
+            }
+        }
+
+        /* Floating particles */
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--accent);
             opacity: 0;
-            animation-delay: 0.15s;
+            animation: floatUp 8s linear infinite;
+        }
+        .particle:nth-child(1) {
+            width: 4px;
+            height: 4px;
+            left: 15%;
+            bottom: -10px;
+            animation-delay: 0s;
+            animation-duration: 9s;
+            background: rgba(184, 169, 154, 0.5);
+        }
+        .particle:nth-child(2) {
+            width: 3px;
+            height: 3px;
+            left: 28%;
+            bottom: -10px;
+            animation-delay: 2s;
+            animation-duration: 7.5s;
+            background: rgba(168, 148, 127, 0.5);
+        }
+        .particle:nth-child(3) {
+            width: 5px;
+            height: 5px;
+            left: 42%;
+            bottom: -10px;
+            animation-delay: 4s;
+            animation-duration: 10s;
+            background: rgba(184, 169, 154, 0.4);
+        }
+        .particle:nth-child(4) {
+            width: 3px;
+            height: 3px;
+            left: 56%;
+            bottom: -10px;
+            animation-delay: 1.5s;
+            animation-duration: 8s;
+            background: rgba(168, 148, 127, 0.45);
+        }
+        .particle:nth-child(5) {
+            width: 4px;
+            height: 4px;
+            left: 68%;
+            bottom: -10px;
+            animation-delay: 5s;
+            animation-duration: 8.5s;
+            background: rgba(184, 169, 154, 0.5);
+        }
+        .particle:nth-child(6) {
+            width: 6px;
+            height: 6px;
+            left: 78%;
+            bottom: -10px;
+            animation-delay: 3s;
+            animation-duration: 9.5s;
+            background: rgba(168, 148, 127, 0.35);
+        }
+        .particle:nth-child(7) {
+            width: 3px;
+            height: 3px;
+            left: 88%;
+            bottom: -10px;
+            animation-delay: 6s;
+            animation-duration: 7s;
+            background: rgba(184, 169, 154, 0.5);
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) translateX(0) scale(0);
+                opacity: 0;
+            }
+            5% {
+                opacity: 0.8;
+                transform: translateY(-5vh) translateX(0) scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: translateY(-55vh) translateX(15px) scale(1.4);
+            }
+            90% {
+                opacity: 0.05;
+            }
+            100% {
+                transform: translateY(-105vh) translateX(-10px) scale(0.3);
+                opacity: 0;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 2rem;
+            animation: fadeInUp 1.2s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(3.2rem, 7vw, 6.5rem);
+            font-family: 'Playfair Display', 'Georgia', 'Times New Roman', serif;
+            font-size: clamp(4rem, 11vw, 8.5rem);
             font-weight: 600;
-            font-style: italic;
-            color: var(--text-primary);
-            letter-spacing: -0.03em;
-            line-height: 1.05;
-            margin-bottom: 16px;
-            animation: fadeUp 0.9s ease-out forwards;
-            opacity: 0;
-            animation-delay: 0.3s;
+            color: var(--text-dark);
+            letter-spacing: 0.06em;
+            margin: 0;
+            line-height: 1;
+            text-shadow: 0 0 40px rgba(168, 148, 127, 0.3), 0 0 80px rgba(184, 169, 154, 0.2), 0 2px 4px rgba(0, 0, 0, 0.05);
+            animation: titlePulse 4s ease-in-out infinite;
+            user-select: none;
         }
 
-        .hero-title .accent-dot {
-            color: var(--accent);
-            font-style: normal;
-        }
-
-        .hero-subtitle {
-            font-size: 1.05rem;
-            font-weight: 400;
-            color: var(--text-secondary);
-            max-width: 480px;
-            letter-spacing: 0.02em;
-            animation: fadeUp 0.9s ease-out forwards;
-            opacity: 0;
-            animation-delay: 0.5s;
-        }
-
-        .hero-line {
-            width: 50px;
-            height: 2px;
-            background: var(--accent-soft);
-            margin: 28px auto 0;
-            border-radius: 1px;
-            animation: fadeUp 0.9s ease-out forwards, lineExtend 1.2s ease-out 0.6s forwards;
-            opacity: 0;
-            animation-delay: 0.65s;
-        }
-
-        @keyframes fadeUp {
-            from {
-                opacity: 0;
-                transform: translateY(28px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes lineExtend {
-            from {
-                width: 50px;
-            }
-            to {
-                width: 90px;
-            }
-        }
-
-        .hero-scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 8px;
-            animation: fadeUp 0.9s ease-out forwards;
-            opacity: 0;
-            animation-delay: 1s;
-            pointer-events: auto;
-            cursor: pointer;
-        }
-
-        .hero-scroll-indicator span {
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            color: var(--text-muted);
-        }
-
-        .hero-scroll-dot {
-            width: 7px;
-            height: 7px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: scrollBounce 1.8s ease-in-out infinite;
-        }
-
-        @keyframes scrollBounce {
+        @keyframes titlePulse {
             0%,
             100% {
-                transform: translateY(0);
-                opacity: 0.5;
+                text-shadow: 0 0 40px rgba(168, 148, 127, 0.3), 0 0 80px rgba(184, 169, 154, 0.2), 0 2px 4px rgba(0, 0, 0, 0.05);
             }
             50% {
-                transform: translateY(14px);
-                opacity: 1;
+                text-shadow: 0 0 60px rgba(168, 148, 127, 0.45), 0 0 100px rgba(184, 169, 154, 0.3), 0 2px 6px rgba(0, 0, 0, 0.08);
             }
         }
 
-        /* ============ GALLERY SECTION ============ */
-        .gallery-section {
-            position: relative;
-            z-index: 1;
-            padding: 20px 40px 80px;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-
-        .gallery-section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .gallery-section-header .small-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.18em;
-            color: var(--accent);
-            font-weight: 500;
-            margin-bottom: 6px;
-        }
-
-        .gallery-section-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
-            font-weight: 500;
-            font-style: italic;
-            color: var(--text-primary);
-            letter-spacing: -0.02em;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 36px;
-            align-items: start;
-        }
-
-        /* ============ POLAROID CARD ============ */
-        .polaroid {
-            background: var(--card-bg);
-            border-radius: var(--radius-sm);
-            padding: 14px 14px 38px 14px;
-            box-shadow: var(--shadow-sm);
-            cursor: pointer;
-            transition: all var(--transition-bounce);
-            position: relative;
-            will-change: transform, box-shadow;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Varied rotations for organic feel */
-        .polaroid:nth-child(3n+1) {
-            transform: rotate(-2.2deg);
-        }
-        .polaroid:nth-child(3n+2) {
-            transform: rotate(1.6deg);
-        }
-        .polaroid:nth-child(3n+3) {
-            transform: rotate(-0.9deg);
-        }
-        .polaroid:nth-child(5n+2) {
-            transform: rotate(2.4deg);
-        }
-        .polaroid:nth-child(7n+4) {
-            transform: rotate(-1.8deg);
-        }
-
-        .polaroid:hover {
-            transform: rotate(0deg) scale(1.04) translateY(-10px) !important;
-            box-shadow: var(--shadow-xl);
-            z-index: 10;
-        }
-
-        .polaroid:active {
-            transform: rotate(0deg) scale(1.01) translateY(-4px) !important;
-            transition: all 0.15s ease-out;
-        }
-
-        .polaroid-image-wrap {
-            width: 100%;
-            overflow: hidden;
-            border-radius: 3px;
-            position: relative;
-            aspect-ratio: 4/5;
-            background: #f5f2ed;
-        }
-
-        .polaroid:nth-child(3n+2) .polaroid-image-wrap {
-            aspect-ratio: 5/4;
-        }
-        .polaroid:nth-child(4n+1) .polaroid-image-wrap {
-            aspect-ratio: 3/4;
-        }
-        .polaroid:nth-child(5n+3) .polaroid-image-wrap {
-            aspect-ratio: 4/5;
-        }
-
-        .polaroid-image-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-            transition: transform 0.7s cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
-
-        .polaroid:hover .polaroid-image-wrap img {
-            transform: scale(1.06);
-        }
-
-        .polaroid-note {
-            font-family: 'Caveat', cursive;
-            font-size: 1rem;
-            color: var(--text-muted);
-            text-align: center;
-            margin-top: 16px;
-            line-height: 1.2;
-            transition: color var(--transition-smooth);
-            letter-spacing: 0.01em;
-        }
-
-        .polaroid:hover .polaroid-note {
-            color: var(--accent);
-        }
-
-        /* Glare effect on hover */
-        .polaroid::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: var(--radius-sm);
-            background: linear-gradient(135deg,
-                    rgba(255, 255, 255, 0) 40%,
-                    rgba(255, 255, 255, 0.25) 50%,
-                    rgba(255, 255, 255, 0) 60%);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
-
-        .polaroid:hover::after {
-            opacity: 1;
-        }
-
-        /* ============ REVEAL ON SCROLL ============ */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.25, 0.1, 0.25, 1);
-        }
-
-        .reveal.revealed {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Staggered delays for polaroids */
-        .polaroid.reveal:nth-child(1) {
-            transition-delay: 0s;
-        }
-        .polaroid.reveal:nth-child(2) {
-            transition-delay: 0.07s;
-        }
-        .polaroid.reveal:nth-child(3) {
-            transition-delay: 0.14s;
-        }
-        .polaroid.reveal:nth-child(4) {
-            transition-delay: 0.05s;
-        }
-        .polaroid.reveal:nth-child(5) {
-            transition-delay: 0.12s;
-        }
-        .polaroid.reveal:nth-child(6) {
-            transition-delay: 0.19s;
-        }
-        .polaroid.reveal:nth-child(7) {
-            transition-delay: 0.08s;
-        }
-        .polaroid.reveal:nth-child(8) {
-            transition-delay: 0.16s;
-        }
-        .polaroid.reveal:nth-child(9) {
-            transition-delay: 0.22s;
-        }
-
-        /* ============ QUOTE SECTION ============ */
-        .quote-section {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 70px 24px 90px;
-            max-width: 650px;
-            margin: 0 auto;
-        }
-
-        .quote-mark {
-            font-family: 'Playfair Display', serif;
-            font-size: 6rem;
-            line-height: 0.4;
-            color: var(--accent-soft);
-            user-select: none;
-            pointer-events: none;
-        }
-
-        .quote-text {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.4rem, 2.5vw, 1.8rem);
-            font-weight: 500;
-            font-style: italic;
-            color: var(--text-primary);
-            letter-spacing: -0.01em;
-            line-height: 1.5;
-            margin: 16px 0 20px;
-        }
-
-        .quote-author {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            letter-spacing: 0.06em;
-            font-weight: 400;
-        }
-
-        .quote-divider {
-            width: 40px;
-            height: 2px;
-            background: var(--accent-soft);
-            margin: 20px auto;
-            border-radius: 1px;
-        }
-
-        /* ============ FOOTER ============ */
-        .footer {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            padding: 40px 24px 50px;
-            border-top: 1px solid var(--border);
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .footer-message {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            font-style: italic;
-            color: var(--text-secondary);
-            letter-spacing: -0.01em;
-            margin-bottom: 6px;
-        }
-
-        .footer-sub {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            letter-spacing: 0.04em;
-        }
-
-        .footer-heart {
+        .hero-date {
             display: inline-block;
-            color: var(--accent-rose);
-            animation: heartBeat 1.3s ease-in-out infinite;
-            font-size: 1.1rem;
-            margin: 0 3px;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: clamp(1rem, 2.8vw, 1.5rem);
+            font-weight: 400;
+            color: var(--text-muted);
+            letter-spacing: 0.12em;
+            margin-top: 1rem;
+            padding: 0.5rem 1.6rem;
+            border: 1px solid rgba(168, 148, 127, 0.3);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            transition: all var(--transition-smooth);
+        }
+        .hero-date:hover {
+            border-color: rgba(168, 148, 127, 0.6);
+            background: rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 25px rgba(168, 148, 127, 0.15);
         }
 
+        /* Heart divider */
+        .hero-heart {
+            display: block;
+            margin: 0.8rem auto;
+            font-size: 1.4rem;
+            color: var(--accent-warm);
+            animation: heartBeat 1.5s ease-in-out infinite;
+            opacity: 0.7;
+        }
         @keyframes heartBeat {
             0%,
             100% {
@@ -613,597 +314,626 @@
                 transform: scale(1);
             }
             45% {
-                transform: scale(1.2);
+                transform: scale(1.15);
             }
             60% {
                 transform: scale(1);
             }
         }
 
-        /* ============ LIGHTBOX ============ */
-        .lightbox-overlay {
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            animation: fadeInUp 1.5s ease forwards 0.6s;
+            opacity: 0;
+        }
+        .scroll-indicator span {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .scroll-arrow {
+            width: 28px;
+            height: 28px;
+            border-right: 2px solid var(--text-muted);
+            border-bottom: 2px solid var(--text-muted);
+            transform: rotate(45deg);
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+        @keyframes scrollBounce {
+            0%,
+            100% {
+                transform: rotate(45deg) translateY(0);
+                opacity: 0.6;
+            }
+            50% {
+                transform: rotate(45deg) translateY(10px);
+                opacity: 1;
+            }
+        }
+
+        /* ============ SECTION STYLES ============ */
+        .section {
+            padding: 4rem 1.25rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-label {
+            display: inline-block;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--accent-warm);
+            font-weight: 600;
+            margin-bottom: 0.4rem;
+        }
+        .section-title {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-size: clamp(1.8rem, 4.5vw, 2.8rem);
+            font-weight: 600;
+            color: var(--text-dark);
+            letter-spacing: 0.03em;
+            margin: 0;
+        }
+        .section-line {
+            width: 50px;
+            height: 2px;
+            background: var(--accent);
+            margin: 0.8rem auto 0;
+            border-radius: 1px;
+            opacity: 0.7;
+        }
+
+        /* ============ SHUFFLED GALLERY ============ */
+        .gallery-shuffled {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            padding: 0;
+        }
+        @media (min-width: 520px) {
+            .gallery-shuffled {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+            }
+        }
+        @media (min-width: 768px) {
+            .gallery-shuffled {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 14px;
+            }
+        }
+        @media (min-width: 1100px) {
+            .gallery-shuffled {
+                grid-template-columns: repeat(5, 1fr);
+                gap: 16px;
+            }
+        }
+
+        .gallery-shuffled .photo-card {
+            position: relative;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            border-radius: var(--radius-sm);
+            background: var(--card-bg);
+            cursor: pointer;
+            transition: all var(--transition-bounce);
+            box-shadow: var(--shadow-sm);
+            opacity: 0;
+            transform: translateY(30px);
+            will-change: transform, opacity;
+        }
+        @media (min-width: 768px) {
+            .gallery-shuffled .photo-card {
+                border-radius: var(--radius-md);
+            }
+        }
+        .gallery-shuffled .photo-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .gallery-shuffled .photo-card:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+            z-index: 5;
+        }
+        .gallery-shuffled .photo-card:active {
+            transform: scale(0.97);
+            transition: transform 0.15s ease;
+        }
+        .gallery-shuffled .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        .gallery-shuffled .photo-card:hover img {
+            transform: scale(1.08);
+        }
+
+        /* Larger cards in shuffled gallery */
+        .gallery-shuffled .photo-card.span-2 {
+            grid-column: span 2;
+            aspect-ratio: 4 / 3;
+            border-radius: var(--radius-md);
+        }
+        @media (max-width: 519px) {
+            .gallery-shuffled .photo-card.span-2 {
+                grid-column: span 2;
+                aspect-ratio: 4 / 3;
+            }
+        }
+        @media (min-width: 768px) {
+            .gallery-shuffled .photo-card.span-2 {
+                border-radius: var(--radius-lg);
+            }
+        }
+
+        /* ============ WIDE GALLERY ============ */
+        .gallery-wide {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.8rem;
+            padding: 0;
+        }
+        @media (min-width: 768px) {
+            .gallery-wide {
+                gap: 2.5rem;
+            }
+        }
+
+        .gallery-wide .wide-card {
+            width: 90vw;
+            max-width: 1000px;
+            aspect-ratio: 4 / 3;
+            overflow: hidden;
+            border-radius: var(--radius-md);
+            background: var(--card-bg);
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: all var(--transition-bounce);
+            opacity: 0;
+            transform: translateY(40px);
+            will-change: transform, opacity;
+            position: relative;
+        }
+        @media (min-width: 768px) {
+            .gallery-wide .wide-card {
+                border-radius: var(--radius-lg);
+            }
+        }
+        .gallery-wide .wide-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .gallery-wide .wide-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: var(--shadow-lg);
+        }
+        .gallery-wide .wide-card:active {
+            transform: scale(0.98);
+            transition: transform 0.15s ease;
+        }
+        .gallery-wide .wide-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        .gallery-wide .wide-card:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Subtle overlay on hover */
+        .photo-card::after,
+        .wide-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.15) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            pointer-events: none;
+            z-index: 1;
+            border-radius: inherit;
+        }
+        .photo-card:hover::after,
+        .wide-card:hover::after {
+            opacity: 1;
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            text-align: center;
+            padding: 3rem 1.5rem;
+            background: var(--bg-white);
+            border-top: 1px solid var(--border-soft);
+        }
+        .footer-text {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: var(--text-dark);
+            letter-spacing: 0.05em;
+            margin: 0;
+        }
+        .footer-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            margin-top: 0.4rem;
+        }
+        .footer-heart {
+            color: var(--accent-warm);
+            font-size: 1.2rem;
+            margin: 0 0.3rem;
+            animation: heartBeat 1.5s ease-in-out infinite;
+        }
+
+        /* ============ LIGHTBOX (ringan) ============ */
+        .lightbox {
             position: fixed;
             inset: 0;
-            z-index: 9999;
-            background: rgba(20, 16, 12, 0.92);
+            background: rgba(44, 40, 38, 0.94);
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.35s ease;
-            backdrop-filter: blur(8px);
+            transition: opacity 0.3s ease;
             -webkit-backdrop-filter: blur(8px);
-            cursor: pointer;
+            backdrop-filter: blur(8px);
         }
-
-        .lightbox-overlay.active {
+        .lightbox.active {
             opacity: 1;
-            pointer-events: auto;
+            pointer-events: all;
         }
-
-        .lightbox-content {
+        .lightbox-img-container {
             position: relative;
-            max-width: 88vw;
-            max-height: 85vh;
-            transform: scale(0.9);
-            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-            cursor: default;
+            max-width: 94vw;
+            max-height: 88vh;
+            max-height: 88dvh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
-        .lightbox-overlay.active .lightbox-content {
+        .lightbox img {
+            max-width: 94vw;
+            max-height: 88vh;
+            max-height: 88dvh;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transform: scale(0.9);
+            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .lightbox.active img {
             transform: scale(1);
         }
-
-        .lightbox-content img {
-            max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-xl);
-            display: block;
-        }
-
-        .lightbox-caption {
-            text-align: center;
-            color: #d5cfc8;
-            font-family: 'Caveat', cursive;
-            font-size: 1.2rem;
-            margin-top: 14px;
-            letter-spacing: 0.02em;
-        }
-
         .lightbox-close {
             position: absolute;
-            top: -44px;
-            right: 0;
-            background: none;
-            border: none;
-            color: #c5bdb4;
-            font-size: 1.8rem;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2.5rem;
+            color: #FDFBF7;
             cursor: pointer;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: all var(--transition-smooth);
-            line-height: 1;
-            font-family: 'Inter', sans-serif;
-            font-weight: 300;
-        }
-
-        .lightbox-close:hover {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .lightbox-nav {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #d5cfc8;
+            z-index: 1001;
             width: 44px;
             height: 44px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 1.3rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all var(--transition-smooth);
-            z-index: 2;
-            font-family: 'Inter', sans-serif;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: none;
+            transition: background 0.25s ease;
+            -webkit-tap-highlight-color: transparent;
         }
-
-        .lightbox-nav:hover {
-            background: rgba(255, 255, 255, 0.14);
-            color: #fff;
-            border-color: rgba(255, 255, 255, 0.3);
+        .lightbox-close:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
-
-        .lightbox-nav.prev {
-            left: -56px;
+        .lightbox-close:active {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(0.9);
         }
-        .lightbox-nav.next {
-            right: -56px;
-        }
-
-        /* ============ RESPONSIVE ============ */
-        @media (max-width: 1024px) {
-            .gallery-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 28px;
-            }
-            .gallery-section {
-                padding: 20px 28px 60px;
-            }
-            .polaroid:nth-child(3n+1),
-            .polaroid:nth-child(3n+2),
-            .polaroid:nth-child(3n+3),
-            .polaroid:nth-child(5n+2),
-            .polaroid:nth-child(7n+4) {
-                transform: rotate(-1.2deg);
-            }
-            .polaroid:nth-child(even) {
-                transform: rotate(1.4deg);
-            }
-            .lightbox-nav.prev {
-                left: 12px;
-            }
-            .lightbox-nav.next {
-                right: 12px;
-            }
+        @media (max-width: 480px) {
             .lightbox-close {
-                top: -42px;
-                right: 8px;
+                top: 0.5rem;
+                right: 0.5rem;
+                font-size: 2rem;
+                width: 38px;
+                height: 38px;
             }
         }
 
-        @media (max-width: 640px) {
-            .gallery-grid {
+        /* ============ RESPONSIVE FINE-TUNING ============ */
+        @media (max-width: 380px) {
+            .gallery-shuffled {
                 grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
+                gap: 7px;
             }
-            .gallery-section {
-                padding: 10px 14px 50px;
+            .gallery-shuffled .photo-card {
+                border-radius: 6px;
             }
-            .polaroid {
-                padding: 10px 10px 26px 10px;
+            .gallery-wide .wide-card {
+                width: 92vw;
+                border-radius: 10px;
             }
-            .polaroid-note {
-                font-size: 0.85rem;
-                margin-top: 10px;
-            }
-            .polaroid:nth-child(3n+1),
-            .polaroid:nth-child(3n+2),
-            .polaroid:nth-child(3n+3),
-            .polaroid:nth-child(5n+2),
-            .polaroid:nth-child(7n+4),
-            .polaroid:nth-child(even) {
-                transform: rotate(-1deg);
-            }
-            .polaroid:nth-child(odd) {
-                transform: rotate(1.2deg);
-            }
-            .nav {
-                padding: 14px 18px;
-            }
-            .nav.scrolled {
-                padding: 10px 18px;
-            }
-            .nav-hint {
-                display: none;
+            .section {
+                padding: 2.5rem 0.75rem;
             }
             .hero-title {
-                font-size: clamp(2.4rem, 8vw, 3.6rem);
+                font-size: clamp(3.2rem, 13vw, 5rem);
             }
-            .hero-subtitle {
+            .hero-date {
                 font-size: 0.9rem;
-                padding: 0 10px;
+                padding: 0.4rem 1.2rem;
             }
-            .quote-text {
-                font-size: 1.2rem;
+        }
+        @media (min-width: 1400px) {
+            .gallery-wide .wide-card {
+                max-width: 1100px;
             }
-            .lightbox-content {
-                max-width: 94vw;
-                max-height: 78vh;
+            .section {
+                padding: 5rem 2rem;
             }
-            .lightbox-nav.prev {
-                left: 4px;
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
+        }
+        @media (min-width: 1800px) {
+            .gallery-shuffled {
+                grid-template-columns: repeat(6, 1fr);
+                gap: 18px;
             }
-            .lightbox-nav.next {
-                right: 4px;
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-            }
-            .lightbox-close {
-                top: -38px;
-                right: 0;
-                font-size: 1.5rem;
-                width: 34px;
-                height: 34px;
+            .gallery-wide .wide-card {
+                max-width: 1200px;
             }
         }
 
-        @media (max-width: 380px) {
-            .gallery-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
             }
-            .polaroid {
-                padding: 8px 8px 20px 8px;
+            .hero::before,
+            .hero::after,
+            .particle,
+            .hero-title,
+            .hero-heart,
+            .scroll-arrow,
+            .footer-heart {
+                animation: none !important;
             }
-            .polaroid-note {
-                font-size: 0.75rem;
-                margin-top: 8px;
+            .photo-card,
+            .wide-card {
+                transition: opacity 0.3s ease !important;
             }
-            .gallery-section {
-                padding: 8px 8px 40px;
+            .hero-content,
+            .scroll-indicator {
+                animation: none !important;
+                opacity: 1 !important;
+                transform: none !important;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- ============ DECORATIVE SHAPES ============ -->
-    <div class="decor-shapes" aria-hidden="true">
-        <div class="decor-shape"></div>
-        <div class="decor-shape"></div>
-        <div class="decor-shape"></div>
-        <div class="decor-shape"></div>
-    </div>
-
-    <!-- ============ NAVIGATION ============ -->
-    <nav class="nav" id="nav">
-        <a href="#" class="nav-logo">Chapter 1 (Rizky & Azka)<span class="dot"></span></a>
-        <span class="nav-hint">✦ Gallery</span>
-    </nav>
-
-    <!-- ============ HERO ============ -->
+    <!-- ==================== HERO SECTION ==================== -->
     <section class="hero" id="hero">
-        <p class="hero-eyebrow">— Lifetime Memories —</p>
-        <h1 class="hero-title">Muhammad Rizky<br>Azka Quena<span class="accent-dot">.</span></h1>
-        <p class="hero-subtitle">Momen keseharian.</p>
-        <div class="hero-line"></div>
-        <div class="hero-scroll-indicator" onclick="document.getElementById('gallery').scrollIntoView({behavior:'smooth'})">
-            <span>jelajahi</span>
-            <div class="hero-scroll-dot"></div>
+        <div class="hero-particles" aria-hidden="true">
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+            <span class="particle"></span>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">ARKA</h1>
+            <span class="hero-heart" aria-hidden="true">♥</span>
+            <p class="hero-date">08/06/2026</p>
+        </div>
+        <div class="scroll-indicator" onclick="document.getElementById('gallery-shuffled-section').scrollIntoView({behavior:'smooth'})" role="button" aria-label="Scroll ke galeri">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
         </div>
     </section>
 
-    <!-- ============ GALLERY ============ -->
-    <section class="gallery-section" id="gallery">
-        <div class="gallery-section-header reveal">
-            <p class="small-label">— galeri —</p>
-            <h2>bingkai kenangan</h2>
+    <!-- ==================== SHUFFLED GALLERY SECTION ==================== -->
+    <section class="section" id="gallery-shuffled-section">
+        <div class="section-header">
+            <span class="section-label">Galeri</span>
+            <h2 class="section-title">Kenangan Kita</h2>
+            <div class="section-line"></div>
         </div>
-
-        <div class="gallery-grid">
-
-            <!-- Card 1 -->
-            <div class="polaroid reveal" data-caption="Ini pertama kali kita foto bareng">
-                <div class="polaroid-image-wrap">
-                    <img src="fto_1.jpg" alt="Momen bersama" loading="lazy">
-                </div>
-                <p class="polaroid-note">Foto bareng pertama kita</p>
-            </div>
-
-            <!-- Card 2 -->
-            <div class="polaroid reveal" data-caption="First Time PULBARRR">
-                <div class="polaroid-image-wrap">
-                    <img src="fto-2.jpeg" alt="Momen bersama" loading="lazy">
-                </div>
-                <p class="polaroid-note">First Time PULBARRR</p>
-            </div>
-
-            
-            <div class="polaroid reveal" data-caption="Haloo, ini kita pertama kali main kerumah azkaa">
-                <div class="polaroid-image-wrap">
-                    <img src="fto_3.jpeg" alt="Momen bersama" loading="lazy">
-                </div>
-                <p class="polaroid-note">Haloo, ini kita pertama kali main kerumah azkaa</p>
-            </div>
-
-            
-            <div class="polaroid reveal" data-caption="Ini kita lagi cooking datee">
-                <div class="polaroid-image-wrap">
-                    <img src="fto_4.jpeg" alt="Momen bersama" loading="lazy">
-                </div>
-                <p class="polaroid-note">Ini kita lagi cooking datee</p>
-            </div>
-
-        
-            <div class="polaroid reveal" data-caption="malam penuh bintang">
-                <div class="polaroid-image-wrap">
-                    <img src="https://picsum.photos/500/700?random=55" alt="Momen bersama" loading="lazy">
-                </div>
-                <p class="polaroid-note">malam penuh bintang 🌙</p>
-            </div>
-
-
-            <div class="polaroid reveal" data-caption="hari yang tenang">
-                <div class="polaroid-image-wrap">
-                    <img src="https://picsum.photos/500/580?random=66" alt="Momen bersama" loading="lazy">
-                </div>
-                <p class="polaroid-note">hari yang tenang</p>
-            </div>
-
-            
-            <div class="polaroid reveal" data-caption="petualangan kecil">
-                <div class="polaroid-image-wrap">
-                    <img src="https://picsum.photos/560/420?random=77" alt="Momen bersama" loading="lazy">
-                </div>
-                <p class="polaroid-note">petualangan kecil kita</p>
-            </div>
-
-
-            <div class="polaroid reveal" data-caption="musim hujan">
-                <div class="polaroid-image-wrap">
-                    <img src="https://picsum.photos/500/630?random=88" alt="Momen bersama" loading="lazy">
-                </div>
-                <p class="polaroid-note">musim hujan bersamamu ☔</p>
-            </div>
-
-            
-            <div class="polaroid reveal" data-caption="cahaya pagi">
-                <div class="polaroid-image-wrap">
-                    <img src="https://picsum.photos/500/600?random=99" alt="Momen bersama" loading="lazy">
-                </div>
-                <p class="polaroid-note">cahaya pagi yang hangat</p>
-            </div>
-        
+        <div class="gallery-shuffled" id="galleryShuffled">
+            <!-- Diisi oleh JavaScript -->
         </div>
     </section>
 
-    <!-- ============ QUOTE SECTION ============ -->
-    <section class="quote-section reveal">
-        <div class="quote-mark">&ldquo;</div>
-        <p class="quote-text">
-            Di antara ribuan momen yang pernah tercipta,<br>yang paling berharga tetaplah momen bersamamu.
-        </p>
-        <div class="quote-divider"></div>
-        <p class="quote-author">— Lifetime Memories</p>
+    <!-- ==================== WIDE GALLERY SECTION ==================== -->
+    <section class="section" id="gallery-wide-section">
+        <div class="section-header">
+            <span class="section-label">Sorotan</span>
+            <h2 class="section-title">Momen Indah</h2>
+            <div class="section-line"></div>
+        </div>
+        <div class="gallery-wide" id="galleryWide">
+            <!-- Diisi oleh JavaScript -->
+        </div>
     </section>
 
-    <!-- ============ FOOTER ============ -->
+    <!-- ==================== FOOTER ==================== -->
     <footer class="footer">
-        <p class="footer-message">terima kasih telah menjadi bagian dari cerita ini</p>
-        <p class="footer-sub">dibuat dengan <span class="footer-heart">♥</span> untuk kenangan kita</p>
+        <p class="footer-text">ARKA</p>
+        <p class="footer-date">Since 08/06/2026</p>
     </footer>
 
-    <!-- ============ LIGHTBOX OVERLAY ============ -->
-    <div class="lightbox-overlay" id="lightboxOverlay">
-        <div class="lightbox-content" id="lightboxContent">
-            <button class="lightbox-close" id="lightboxClose" aria-label="Tutup">&times;</button>
-            <button class="lightbox-nav prev" id="lightboxPrev" aria-label="Sebelumnya">‹</button>
-            <img src="" alt="Momen" id="lightboxImg">
-            <p class="lightbox-caption" id="lightboxCaption"></p>
-            <button class="lightbox-nav next" id="lightboxNext" aria-label="Selanjutnya">›</button>
+    <!-- ==================== LIGHTBOX ==================== -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Tutup lightbox">&times;</button>
+        <div class="lightbox-img-container">
+            <img src="" alt="" id="lightboxImg">
         </div>
     </div>
 
-    <!-- ============ SCRIPTS ============ -->
     <script>
         (function() {
-            // ===== NAV SCROLL EFFECT =====
-            const nav = document.getElementById('nav');
-            let lastScrollY = 0;
+            // ============ IMAGE DATA ============
+            // Ganti URL di bawah dengan foto-foto kamu sendiri (semua landscape 4:3)
+            const shuffledPhotos = [
+                { src: 'https://drive.google.com/thumbnail?id=1Ps2nZ1Xj2rZBDN-9zOomVtAuPzl8NOQi&sz=w1000', alt: 'Foto kenangan 1' },
+                { src: 'https://drive.google.com/thumbnail?id=1U7Ueju_iYUBUG_FVcoug-m9LT29pcOKz&sz=w1000', alt: 'Foto kenangan 2' },
+                { src: 'https://drive.google.com/thumbnail?id=1tWP8EPQEld4oC0KkTEM45ZSVlF4jQ-yV&sz=w1000', alt: 'Foto kenangan 3' },
+                { src: 'https://drive.google.com/thumbnail?id=14_8PO5cZaBy7fOzIfOipsZCOsT2JrjfX&sz=w1000', alt: 'Foto kenangan 4' },
+            ];
 
-            function updateNav() {
-                const scrollY = window.scrollY;
-                if (scrollY > 60) {
-                    nav.classList.add('scrolled');
-                } else {
-                    nav.classList.remove('scrolled');
+            const widePhotos = [
+                { src: 'https://drive.google.com/thumbnail?id=1HGbrVcOy3gsc2uJsXqKvKSii3fq4jwNf&sz=w1000', alt: 'Momen indah 1' },
+                { src: 'https://drive.google.com/thumbnail?id=11O2DFA2hRmpt0OeukxEk4cBHzVZvPFsv&sz=w1000', alt: 'Momen indah 2' },
+                { src: 'https://drive.google.com/thumbnail?id=1BbNQVT5_HYJ6EPMUMHAENGKEZeTGM3fE&sz=w1000', alt: 'Momen indah 3' },
+            ];
+
+            // ============ SHUFFLE FUNCTION ============
+            function shuffleArray(arr) {
+                const a = [...arr];
+                for (let i = a.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [a[i], a[j]] = [a[j], a[i]];
                 }
-                lastScrollY = scrollY;
-                requestAnimationFrame(() => {});
+                return a;
             }
 
-            window.addEventListener('scroll', updateNav, { passive: true });
-            updateNav();
+            // ============ BUILD SHUFFLED GALLERY ============
+            const shuffledContainer = document.getElementById('galleryShuffled');
+            const shuffledData = shuffleArray(shuffledPhotos);
 
-            // ===== INTERSECTION OBSERVER FOR REVEAL =====
-            const revealElements = document.querySelectorAll('.reveal');
+            // Posisi yang akan mendapat kelas span-2 (lebih lebar) — setiap 5 foto
+            const spanTwoPositions = new Set([0, 5, 9]);
+
+            shuffledData.forEach((photo, index) => {
+                const card = document.createElement('div');
+                card.className = 'photo-card';
+                if (spanTwoPositions.has(index)) {
+                    card.classList.add('span-2');
+                }
+                card.setAttribute('data-src', photo.src);
+                card.setAttribute('data-alt', photo.alt);
+                card.innerHTML =
+                    `<img src="${photo.src}" alt="${photo.alt}" loading="lazy" width="800" height="600">`;
+                card.addEventListener('click', () => openLightbox(photo.src, photo.alt));
+                shuffledContainer.appendChild(card);
+            });
+
+            // ============ BUILD WIDE GALLERY ============
+            const wideContainer = document.getElementById('galleryWide');
+            widePhotos.forEach((photo) => {
+                const card = document.createElement('div');
+                card.className = 'wide-card';
+                card.setAttribute('data-src', photo.src);
+                card.setAttribute('data-alt', photo.alt);
+                card.innerHTML =
+                    `<img src="${photo.src}" alt="${photo.alt}" loading="lazy" width="1200" height="900">`;
+                card.addEventListener('click', () => openLightbox(photo.src, photo.alt));
+                wideContainer.appendChild(card);
+            });
+
+            // ============ INTERSECTION OBSERVER ============
+            const allCards = document.querySelectorAll('.photo-card, .wide-card');
+
             const observerOptions = {
                 root: null,
                 rootMargin: '0px 0px -40px 0px',
-                threshold: 0.15,
+                threshold: 0.1,
             };
 
-            const revealObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('revealed');
-                        revealObserver.unobserve(entry.target);
+                        entry.target.classList.add('visible');
+                        // Stagger delay berdasarkan posisi
+                        const allVisible = document.querySelectorAll('.photo-card.visible, .wide-card.visible');
+                        const idx = Array.from(allVisible).indexOf(entry.target);
+                        if (idx >= 0) {
+                            entry.target.style.transitionDelay = `${Math.min(idx * 0.04, 0.5)}s`;
+                        }
+                        observer.unobserve(entry.target);
                     }
                 });
             }, observerOptions);
 
-            revealElements.forEach(el => revealObserver.observe(el));
+            allCards.forEach((card) => {
+                observer.observe(card);
+            });
 
-            // Also observe polaroids directly
-            const polaroids = document.querySelectorAll('.polaroid.reveal');
-            polaroids.forEach(el => revealObserver.observe(el));
-
-            // ===== LIGHTBOX =====
-            const lightboxOverlay = document.getElementById('lightboxOverlay');
+            // ============ LIGHTBOX ============
+            const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
-            const lightboxCaption = document.getElementById('lightboxCaption');
             const lightboxClose = document.getElementById('lightboxClose');
-            const lightboxPrev = document.getElementById('lightboxPrev');
-            const lightboxNext = document.getElementById('lightboxNext');
-            const lightboxContent = document.getElementById('lightboxContent');
 
-            let currentPolaroids = [];
-            let currentIndex = 0;
-
-            // Collect all polaroid cards
-            function getPolaroids() {
-                return Array.from(document.querySelectorAll('.polaroid'));
-            }
-
-            // Open lightbox
-            function openLightbox(index) {
-                currentPolaroids = getPolaroids();
-                currentIndex = index;
-                const polaroid = currentPolaroids[currentIndex];
-                const img = polaroid.querySelector('img');
-                const caption = polaroid.getAttribute('data-caption') ||
-                    polaroid.querySelector('.polaroid-note')?.textContent?.trim() || '';
-
-                lightboxImg.src = img.src;
-                lightboxImg.alt = img.alt;
-                lightboxCaption.textContent = caption;
-                lightboxOverlay.classList.add('active');
+            function openLightbox(src, alt) {
+                lightboxImg.src = src;
+                lightboxImg.alt = alt;
+                lightbox.classList.add('active');
+                lightbox.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'hidden';
-
-                // Update nav visibility
-                updateLightboxNav();
             }
 
             function closeLightbox() {
-                lightboxOverlay.classList.remove('active');
+                lightbox.classList.remove('active');
+                lightbox.setAttribute('aria-hidden', 'true');
                 document.body.style.overflow = '';
-                lightboxImg.src = '';
-            }
-
-            function goToPrev(e) {
-                e.stopPropagation();
-                if (currentPolaroids.length === 0) return;
-                currentIndex = (currentIndex - 1 + currentPolaroids.length) % currentPolaroids.length;
-                updateLightboxImage();
-            }
-
-            function goToNext(e) {
-                e.stopPropagation();
-                if (currentPolaroids.length === 0) return;
-                currentIndex = (currentIndex + 1) % currentPolaroids.length;
-                updateLightboxImage();
-            }
-
-            function updateLightboxImage() {
-                const polaroid = currentPolaroids[currentIndex];
-                const img = polaroid.querySelector('img');
-                const caption = polaroid.getAttribute('data-caption') ||
-                    polaroid.querySelector('.polaroid-note')?.textContent?.trim() || '';
-
-                // Quick fade effect
-                lightboxImg.style.opacity = '0';
-                lightboxCaption.style.opacity = '0';
-
+                // Bersihkan src setelah transisi
                 setTimeout(() => {
-                    lightboxImg.src = img.src;
-                    lightboxImg.alt = img.alt;
-                    lightboxCaption.textContent = caption;
-                    lightboxImg.style.opacity = '1';
-                    lightboxCaption.style.opacity = '1';
-                }, 180);
-
-                updateLightboxNav();
+                    if (!lightbox.classList.contains('active')) {
+                        lightboxImg.src = '';
+                    }
+                }, 350);
             }
 
-            function updateLightboxNav() {
-                if (currentPolaroids.length <= 1) {
-                    lightboxPrev.style.display = 'none';
-                    lightboxNext.style.display = 'none';
-                } else {
-                    lightboxPrev.style.display = 'flex';
-                    lightboxNext.style.display = 'flex';
+            lightboxClose.addEventListener('click', closeLightbox);
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    closeLightbox();
                 }
-            }
-
-            // Add transition for smooth image swap
-            lightboxImg.style.transition = 'opacity 0.2s ease';
-            lightboxCaption.style.transition = 'opacity 0.2s ease';
-
-            // Event listeners for polaroids
-            function attachPolaroidListeners() {
-                const allPolaroids = document.querySelectorAll('.polaroid');
-                allPolaroids.forEach((polaroid, index) => {
-                    polaroid.addEventListener('click', () => {
-                        openLightbox(index);
-                    });
-                });
-            }
-
-            attachPolaroidListeners();
-
-            // Lightbox controls
-            lightboxClose.addEventListener('click', (e) => {
-                e.stopPropagation();
-                closeLightbox();
             });
-
-            lightboxOverlay.addEventListener('click', (e) => {
-                if (e.target === lightboxOverlay) {
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
                     closeLightbox();
                 }
             });
 
-            lightboxPrev.addEventListener('click', goToPrev);
-            lightboxNext.addEventListener('click', goToNext);
-
-            // Prevent lightbox content click from closing
-            lightboxContent.addEventListener('click', (e) => {
-                e.stopPropagation();
-            });
-
-            // Keyboard controls
-            document.addEventListener('keydown', (e) => {
-                if (!lightboxOverlay.classList.contains('active')) return;
-
-                switch (e.key) {
-                    case 'Escape':
-                        closeLightbox();
-                        break;
-                    case 'ArrowLeft':
-                        goToPrev(e);
-                        break;
-                    case 'ArrowRight':
-                        goToNext(e);
-                        break;
-                    default:
-                        break;
+            // ============ TOUCH SWIPE TO CLOSE LIGHTBOX (mobile) ============
+            let touchStartY = 0;
+            lightbox.addEventListener('touchstart', (e) => {
+                touchStartY = e.touches[0].clientY;
+            }, { passive: true });
+            lightbox.addEventListener('touchend', (e) => {
+                const touchEndY = e.changedTouches[0].clientY;
+                const diff = touchEndY - touchStartY;
+                if (Math.abs(diff) > 80 && lightbox.classList.contains('active')) {
+                    closeLightbox();
                 }
             });
 
-            // ===== SMOOTH SCROLL FOR SCROLL INDICATOR =====
-            const scrollIndicator = document.querySelector('.hero-scroll-indicator');
-            if (scrollIndicator) {
-                scrollIndicator.addEventListener('click', () => {
-                    const gallery = document.getElementById('gallery');
-                    if (gallery) {
-                        gallery.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                });
-            }
-
-            // ===== RE-OBSERVE ON RESIZE (for responsive layouts) =====
-            let resizeTimeout;
-            window.addEventListener('resize', () => {
-                clearTimeout(resizeTimeout);
-                resizeTimeout = setTimeout(() => {
-                    // Re-attach polaroid listeners in case DOM changed
-                    attachPolaroidListeners();
-                    // Re-observe reveal elements
-                    const allReveal = document.querySelectorAll('.reveal:not(.revealed)');
-                    allReveal.forEach(el => revealObserver.observe(el));
-                }, 300);
-            });
-
-            console.log('%c✨ cerita kitaa. — pameran momen %c%s',
-                'font-family: "Playfair Display", serif; font-size: 1.4em; font-style: italic; color: #c2956c;',
-                'font-family: Inter, sans-serif; font-size: 0.8em; color: #9c958c;',
-                '| Ganti gambar dengan foto kalian sendiri ya! 📸');
         })();
     </script>
 </body>
