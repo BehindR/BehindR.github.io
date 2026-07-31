@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ARKA</title>
+  <meta name="description" content="Website ucapan romantis dengan challenge dan integrasi Google Sheets." />
+  <link rel="icon" type="image/png" href="favicon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500;600;700&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      --bg-1:#1a041f;
+      --bg-2:#2d0a31;
+      --bg-3:#3d1538;
+      --accent:#b84770;
+      --accent-2:#7a2d5a;
+      --text-dark:#4a2535;
+      --text-soft:#6b4a58;
+      --card:#fef9f5;
+      --shadow:rgba(25,0,15,.55);
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+    body{
+      min-height:100vh; min-height:100dvh; overflow-x:hidden;
+      font-family:"Poppins",sans-serif; color:#fefaf7; background:var(--bg-1);
+      display:flex; align-items:center; justify-content:center; padding:20px;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+      position:relative;
+    }
+
+    .bg-layer{position:fixed; inset:0; pointer-events:none; z-index:0}
+    .bg-gradient{
+      position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse at 20% 10%, rgba(210,120,160,.35) 0%, transparent 55%),
+        radial-gradient(ellipse at 75% 85%, rgba(140,80,150,.3) 0%, transparent 55%),
+        radial-gradient(ellipse at 50% 50%, rgba(100,40,80,.5) 0%, transparent 70%),
+        linear-gradient(160deg, var(--bg-1) 0%, var(--bg-2) 25%, var(--bg-3) 50%, #2a0d2c 75%, var(--bg-1) 100%);
+    }
+    .bg-orb{
+      position:absolute; border-radius:50%; filter:blur(90px); opacity:.4;
+      animation:orbFloat 18s ease-in-out infinite; will-change:transform;
+    }
+    .bg-orb--1{width:300px;height:300px;top:-8%;left:-5%;background:#e898b9;animation-duration:20s}
+    .bg-orb--2{width:260px;height:260px;bottom:-10%;right:-6%;background:#b886c9;animation-delay:-7s;animation-duration:22s}
+    .bg-orb--3{width:200px;height:200px;top:45%;left:55%;background:#d4a0c0;animation-delay:-13s;animation-duration:19s}
+    @keyframes orbFloat{
+      0%,100%{transform:translate(0,0) scale(1)}
+      25%{transform:translate(30px,-25px) scale(1.08)}
+      50%{transform:translate(-18px,20px) scale(.94)}
+      75%{transform:translate(22px,15px) scale(1.05)}
+    }
+
+    .stars-container{position:fixed; inset:0; pointer-events:none; z-index:0}
+    .star-dot{
+      position:absolute; border-radius:50%; background:#fff; opacity:0;
+      width:3px; height:3px; animation:twinkle var(--twinkle-dur,3s) ease-in-out infinite;
+      animation-delay:var(--twinkle-delay,0s);
+    }
+    @keyframes twinkle{
+      0%,100%{opacity:.2; transform:scale(.7)}
+      40%{opacity:.9; transform:scale(1.6)}
+      60%{opacity:.5; transform:scale(1)}
+    }
+
+    .petal{
+      position:fixed; pointer-events:none; z-index:1; opacity:0; filter:blur(.5px);
+      animation:petalFall var(--fall-dur,14s) linear infinite;
+      animation-delay:var(--fall-delay,0s); font-size:var(--petal-size,18px);
+    }
+    @keyframes petalFall{
+      0%{opacity:0; transform:translateY(-60px) translateX(0) rotate(0deg) scale(.6)}
+      5%{opacity:.7}
+      50%{opacity:.5; transform:translateY(55vh) translateX(var(--sway,40px)) rotate(200deg) scale(.85)}
+      90%{opacity:.25}
+      100%{opacity:0; transform:translateY(105vh) translateX(calc(var(--sway,40px) * -0.7)) rotate(380deg) scale(.3)}
+    }
+
+    .challenge-card{
+      position:relative; z-index:3; width:min(600px,100%);
+      padding:40px 30px 35px; border-radius:24px;
+      background:linear-gradient(175deg, #fef9f5 0%, #fdf3f0 30%, #fef6f3 100%);
+      box-shadow:0 30px 80px var(--shadow), 0 0 0 1px rgba(180,120,140,.25), inset 0 1px 0 rgba(255,255,255,.6);
+      color:var(--text-dark); overflow:hidden; animation:cardEntry 1s cubic-bezier(.22,.61,.36,1);
+    }
+    @keyframes cardEntry{
+      from{opacity:0; transform:translateY(40px) scale(.9)}
+      to{opacity:1; transform:translateY(0) scale(1)}
+    }
+
+    .ribbon-top{
+      position:absolute; top:0; left:50%; transform:translateX(-50%);
+      width:80px; height:18px; background:linear-gradient(180deg,#d4a0b8,#b8708c);
+      border-radius:0 0 8px 8px; z-index:2; box-shadow:0 3px 10px rgba(100,30,55,.3);
+    }
+    .wax-seal{
+      position:absolute; top:-22px; right:32px; width:44px; height:44px; border-radius:50%;
+      background:radial-gradient(circle at 40% 35%, #d4738e, #8f3055);
+      box-shadow:0 6px 20px rgba(100,20,50,.45), inset 0 -3px 6px rgba(0,0,0,.25), inset 0 2px 4px rgba(255,255,255,.3);
+      z-index:10; display:flex; align-items:center; justify-content:center;
+      font-size:1.2rem; color:rgba(255,255,255,.8); transform:rotate(8deg);
+      animation:sealDrop .7s cubic-bezier(.34,1.56,.64,1) .3s both;
+    }
+    @keyframes sealDrop{
+      from{opacity:0; transform:rotate(8deg) translateY(-50px) scale(.5)}
+      to{opacity:1; transform:rotate(8deg) translateY(0) scale(1)}
+    }
+
+    .challenge-heading{
+      text-align:center; font-family:"Dancing Script",cursive;
+      font-size:clamp(2.4rem,7vw,3.2rem); color:#8e3055; margin-bottom:6px; line-height:1.15;
+      position:relative; z-index:2;
+    }
+    .challenge-subtitle{
+      text-align:center; font-size:.8rem; letter-spacing:2px; text-transform:uppercase; color:#b08090;
+      margin-bottom:30px; position:relative; z-index:2;
+    }
+    .question-block{margin-bottom:28px; position:relative; z-index:2}
+    .question-label{
+      display:block; font-family:"Cormorant Garamond",serif; font-size:1.2rem; font-weight:500;
+      color:#5c2e40; margin-bottom:8px; letter-spacing:.3px;
+    }
+    .question-input{
+      width:100%; padding:14px 18px; border-radius:16px; border:1.5px solid rgba(180,120,140,.4);
+      background:rgba(255,250,248,.7); backdrop-filter:blur(6px); font-family:"Poppins",sans-serif;
+      font-size:.9rem; color:var(--text-dark); outline:none; resize:vertical;
+      transition:all .35s ease; box-shadow:0 2px 10px rgba(0,0,0,.04);
+    }
+    .question-input:focus{
+      border-color:var(--accent); box-shadow:0 0 0 4px rgba(184,71,112,.15), 0 4px 18px rgba(0,0,0,.08);
+      background:rgba(255,252,250,.95);
+    }
+    .question-input::placeholder{color:#c9a6b4; font-style:italic; font-size:.85rem}
+
+    .btn-submit-wrap{text-align:center; margin-top:36px; position:relative; z-index:2}
+    .btn-submit{
+      display:inline-flex; align-items:center; gap:10px; padding:16px 38px; border:none; border-radius:999px;
+      font-family:"Poppins",sans-serif; font-size:.95rem; font-weight:600; cursor:pointer; color:#fefaf7;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      box-shadow:0 8px 30px rgba(120,30,70,.45), 0 0 0 1px rgba(255,255,255,.2), inset 0 1px 0 rgba(255,255,255,.15);
+      transition:all .35s cubic-bezier(.34,1.56,.64,1); letter-spacing:.3px; position:relative; overflow:hidden;
+      -webkit-tap-highlight-color:transparent; user-select:none;
+    }
+    .btn-submit::after{
+      content:""; position:absolute; inset:2px; border-radius:999px;
+      background:linear-gradient(180deg, rgba(255,255,255,.18) 0%, transparent 50%); pointer-events:none;
+    }
+    .btn-submit:hover{transform:translateY(-5px) scale(1.03); box-shadow:0 14px 40px rgba(120,30,70,.55), 0 0 0 1px rgba(255,255,255,.35)}
+    .btn-submit:active{transform:scale(.95); transition:transform .15s ease}
+    .btn-submit:disabled{opacity:.7; pointer-events:none; filter:grayscale(.2)}
+    .error-message{color:#c0392b; font-size:.8rem; margin-top:8px; display:none}
+    .helper{
+      margin-top:14px; font-size:.78rem; color:#886271; line-height:1.6;
+    }
+
+    .success-overlay{
+      position:fixed; inset:0; z-index:50; background:rgba(20,2,15,.7); backdrop-filter:blur(12px);
+      display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity .5s ease;
+      padding:20px;
+    }
+    .success-overlay.active{opacity:1; pointer-events:auto}
+    .success-box{
+      background:linear-gradient(175deg, #fef9f5, #fdf3f0); padding:40px 30px; border-radius:28px;
+      text-align:center; color:var(--text-dark); max-width:420px; width:100%; box-shadow:0 30px 70px rgba(0,0,0,.5);
+      animation:popIn .55s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes popIn{
+      from{opacity:0; transform:scale(.8) translateY(20px)}
+      to{opacity:1; transform:scale(1) translateY(0)}
+    }
+    .success-emoji{font-size:4rem; margin-bottom:15px}
+    .success-title{
+      font-family:"Dancing Script",cursive; font-size:2.2rem; color:#8e3055; margin-bottom:12px;
+    }
+    .success-text{font-size:.92rem; color:var(--text-soft); margin-bottom:20px; line-height:1.65}
+    .btn-final{
+      display:inline-block; padding:14px 28px; border-radius:999px; text-decoration:none;
+      color:#fefaf7; background:linear-gradient(135deg, #b84770, #6e2a4e);
+      box-shadow:0 10px 28px rgba(110,35,65,.4); transition:all .35s cubic-bezier(.34,1.56,.64,1);
+      font-weight:600;
+    }
+    .btn-final:hover{transform:translateY(-4px) scale(1.03)}
+    .small-note{margin-top:14px; font-size:.78rem; color:#8f6a78}
+
+    .saving-banner{
+      display:none; margin-top:16px; padding:12px 14px; border-radius:14px;
+      background:rgba(184,71,112,.08); color:#8e3055; font-size:.82rem; border:1px solid rgba(184,71,112,.18);
+    }
+
+    @media (max-width:500px){
+      .challenge-card{padding:30px 18px 28px}
+      .question-label{font-size:1rem}
+      .question-input{padding:12px 14px; font-size:.82rem}
+      .btn-submit{padding:14px 28px; font-size:.85rem}
+      .success-box{padding:34px 20px}
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-layer" aria-hidden="true">
+    <div class="bg-gradient"></div>
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+  </div>
+  <div class="stars-container" id="starsContainer" aria-hidden="true"></div>
+  <div id="petalsContainer" aria-hidden="true"></div>
+
+  <main class="challenge-card" role="form" aria-label="Form tantangan romantis">
+    <div class="ribbon-top"></div>
+    <div class="wax-seal" aria-hidden="true">♡</div>
+
+    <h1 class="challenge-heading">Tantangan Kedua</h1>
+    <p class="challenge-subtitle">Selesaikan buat buka tantangan selanjutnya</p>
+
+    <form id="challengeForm" novalidate>
+      <div class="question-block">
+        <label class="question-label" for="q1">1. Masukan kode aktivasi dari tantangan 1</label>
+        <input type="text" id="q1" class="question-input" placeholder="Kalo lupa parah sihh" autocomplete="off" required />
+      </div>
+
+      <div class="question-block">
+        <label class="question-label" for="q2">2. Apa evaluasi untuk hubungan kita saat ini</label>
+        <input type="text" id="q2" class="question-input" placeholder="Yapping lagi yang banyak yaaa!" autocomplete="off" required />
+      </div>
+
+      <div class="question-block">
+        <label class="question-label" for="q3">3. Siapa nama Papah, Ibu, Kakak, dan Adik aku</label>
+        <input type="text" id="q3" class="question-input" placeholder="Menguji ajaa" autocomplete="off" required />
+      </div>
+
+      <div class="question-block">
+        <label class="question-label" for="q4">4. Setujukah hitam adalah warna terbaik dan berwibawa?</label>
+        <input type="text" id="q4" class="question-input" placeholder="Jelas iyaa dongg" autocomplete="off" required />
+      </div>
+
+      <div class="question-block">
+        <label class="question-label" for="q5">5. Makanan fav azkaa</label>
+        <input type="text" id="q5" class="question-input" placeholder="Pengen tauuuu" autocomplete="off" required />
+      </div>
+
+      <div class="btn-submit-wrap">
+        <button type="submit" class="btn-submit" id="submitBtn">💌 Kirim Jawaban <span style="font-size:1.1rem;">→</span></button>
+        <div class="error-message" id="errorMessage">⚠️ Lengkapi semua jawaban dulu ya.</div>
+        <div class="saving-banner" id="savingBanner">Sedang menyimpan jawaban ke Database Rizky gaming 123...</div>
+        <p class="helper">Semoga jawabannya benar yaa</p>
+      </div>
+    </form>
+  </main>
+
+  <div class="success-overlay" id="successOverlay" aria-hidden="true">
+    <div class="success-box">
+      <div class="success-emoji">🎁</div>
+      <h2 class="success-title">Jawaban Tersimpan!</h2>
+      <p class="success-text">
+        Kamu berhasil melewati tantangan ini.<br />
+        Sekarang saatnya menuju hadiah terakhirmu.
+      </p>
+      <a id="finalLink" href="#" class="btn-final">Buka Hadiah Terakhir ✨</a>
+      <div class="small-note" id="redirectNote"></div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      // Isi dengan URL Web App Google Apps Script milikmu
+      const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyJWuEzEm3_JeJJvcgkW0xylP2DKFWMHmzia4puYWu6K6LMM2AdHF5qizfEpQM8jELi/exec";
+      // Ganti dengan halaman hadiah terakhir
+      const FINAL_URL = "end-day1.html";
+      // Ganti jika mau tampilkan nama pengirim
+      const SENDER_NAME = "Azka";
+
+      const form = document.getElementById("challengeForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const errorMsg = document.getElementById("errorMessage");
+      const savingBanner = document.getElementById("savingBanner");
+      const successOverlay = document.getElementById("successOverlay");
+      const finalLink = document.getElementById("finalLink");
+      const redirectNote = document.getElementById("redirectNote");
+      const starsContainer = document.getElementById("starsContainer");
+      const petalsContainer = document.getElementById("petalsContainer");
+
+      finalLink.href = FINAL_URL;
+
+      function createStars(count = 50) {
+        const frag = document.createDocumentFragment();
+        for (let i = 0; i < count; i++) {
+          const star = document.createElement("span");
+          star.className = "star-dot";
+          star.style.left = Math.random() * 100 + "%";
+          star.style.top = Math.random() * 100 + "%";
+          star.style.setProperty("--twinkle-dur", (Math.random() * 3 + 2.5) + "s");
+          star.style.setProperty("--twinkle-delay", (Math.random() * 4) + "s");
+          frag.appendChild(star);
+        }
+        starsContainer.appendChild(frag);
+      }
+
+      function createPetals(count = 14) {
+        const petalEmojis = ["🌸", "💮", "🩷", "🌷", "✿", "🪷"];
+        const frag = document.createDocumentFragment();
+        for (let i = 0; i < count; i++) {
+          const petal = document.createElement("span");
+          petal.className = "petal";
+          petal.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+          petal.style.left = Math.random() * 96 + "%";
+          petal.style.setProperty("--fall-dur", (Math.random() * 12 + 14) + "s");
+          petal.style.setProperty("--fall-delay", (Math.random() * 16) + "s");
+          petal.style.setProperty("--sway", (Math.random() * 100 - 50) + "px");
+          petal.style.setProperty("--petal-size", (Math.random() * 16 + 14) + "px");
+          frag.appendChild(petal);
+        }
+        petalsContainer.appendChild(frag);
+      }
+
+      function getFormValues() {
+        return {
+          q1: document.getElementById("q1").value.trim(),
+          q2: document.getElementById("q2").value.trim(),
+          q3: document.getElementById("q3").value.trim(),
+          q4: document.getElementById("q4").value.trim(),
+          q5: document.getElementById("q5").value.trim(),
+        };
+      }
+
+      function allFilled(values) {
+        return Object.values(values).every(Boolean);
+      }
+
+      function setLoading(isLoading) {
+        submitBtn.disabled = isLoading;
+        submitBtn.innerHTML = isLoading ? "⏳ Mengirim..." : '💌 Kirim Jawaban <span style="font-size:1.1rem;">→</span>';
+        savingBanner.style.display = isLoading ? "block" : "none";
+      }
+
+      async function sendToGoogleSheets(values) {
+        if (!GOOGLE_SCRIPT_URL || GOOGLE_SCRIPT_URL.includes("PASTE_URL")) return false;
+
+        const formData = new FormData();
+        formData.append("timestamp", new Date().toISOString());
+        formData.append("sender", SENDER_NAME);
+        formData.append("q1", values.q1);
+        formData.append("q2", values.q2);
+        formData.append("q3", values.q3);
+        formData.append("q4", values.q4);
+        formData.append("q5", values.q5);
+
+        // mode no-cors supaya tetap bisa kirim ke Apps Script dari website statis
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          mode: "no-cors",
+          body: formData,
+        });
+
+        return true;
+      }
+
+      function showSuccess() {
+        successOverlay.classList.add("active");
+        successOverlay.setAttribute("aria-hidden", "false");
+        redirectNote.textContent = "Kalau tombolnya tidak diklik, akan lanjut otomatis sebentar lagi.";
+        setTimeout(() => {
+          window.location.href = FINAL_URL;
+        }, 15000);
+      }
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const values = getFormValues();
+
+        if (!allFilled(values)) {
+          errorMsg.style.display = "block";
+          setTimeout(() => (errorMsg.style.display = "none"), 3000);
+          return;
+        }
+
+        errorMsg.style.display = "none";
+        setLoading(true);
+
+        try {
+          await sendToGoogleSheets(values);
+        } catch (err) {
+          console.warn("Gagal kirim ke Google Sheets:", err);
+        } finally {
+          setLoading(false);
+          showSuccess();
+        }
+      });
+
+      successOverlay.addEventListener("click", (event) => {
+        if (event.target === successOverlay) {
+          successOverlay.classList.remove("active");
+          successOverlay.setAttribute("aria-hidden", "true");
+        }
+      });
+
+      createStars();
+      createPetals();
+    })();
+  </script>
+</body>
+</html>
