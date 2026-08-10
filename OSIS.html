@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pencatat Pelanggaran — OSIS SMAN 3 Garut</title>
+  <meta name="description" content="Aplikasi pencatat dan pemantau pelanggaran siswa oleh OSIS SMAN 3 Garut. Terintegrasi dengan Google Sheets.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ═══ HEADER ═══ -->
+  <header class="header" id="appHeader">
+    <div class="header-inner">
+      <div class="header-left">
+        <div class="logo-badge">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/>
+            <rect x="8" y="2" width="8" height="4" rx="1" ry="1"/>
+            <path d="M9 14l2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="header-text">
+          <h1>Pencatat Pelanggaran</h1>
+          <p class="header-subtitle">OSIS SMAN 3 Garut</p>
+        </div>
+      </div>
+      <div class="header-stats">
+        <div class="stat-chip">
+          <span class="stat-value" id="statSiswa">—</span>
+          <span class="stat-label">Siswa</span>
+        </div>
+        <div class="stat-chip stat-chip--accent">
+          <span class="stat-value" id="statPelanggaran">—</span>
+          <span class="stat-label">Pelanggaran</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══ MAIN ═══ -->
+  <main class="main">
+
+    <!-- Toolbar -->
+    <div class="toolbar" id="toolbar">
+      <div class="search-wrap">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="Cari nama atau kelas…"
+          autocomplete="off"
+          spellcheck="false"
+        >
+        <button class="search-clear" id="searchClear" title="Hapus pencarian" aria-label="Hapus pencarian">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+      <div class="legend" id="legend">
+        <span class="legend-dot legend-dot--warning"></span>
+        <span class="legend-text">Telat &gt; 2×</span>
+        <span class="legend-dot legend-dot--danger"></span>
+        <span class="legend-text">Telat &gt; 3×</span>
+      </div>
+    </div>
+
+    <!-- Table Container -->
+    <div class="table-wrap" id="tableWrap">
+
+      <!-- Loading State -->
+      <div class="state-loading" id="stateLoading">
+        <div class="spinner">
+          <div class="spinner-ring"></div>
+        </div>
+        <p class="state-text">Memuat data siswa<span class="dots"></span></p>
+      </div>
+
+      <!-- Error State -->
+      <div class="state-error" id="stateError">
+        <div class="state-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="12"/>
+            <line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+        </div>
+        <p class="state-title" id="errorTitle">Gagal memuat data</p>
+        <p class="state-desc" id="errorDesc">Periksa koneksi internet dan URL konfigurasi.</p>
+        <button class="btn btn--outline" id="btnRetry">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"/>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+          </svg>
+          Coba Lagi
+        </button>
+      </div>
+
+      <!-- Empty State (no search results) -->
+      <div class="state-empty" id="stateEmpty">
+        <div class="state-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <line x1="8" y1="11" x2="14" y2="11"/>
+          </svg>
+        </div>
+        <p class="state-title">Tidak ditemukan</p>
+        <p class="state-desc" id="emptyDesc">Tidak ada siswa yang cocok dengan pencarian.</p>
+      </div>
+
+      <!-- Config Required State -->
+      <div class="state-config" id="stateConfig">
+        <div class="state-icon">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+          </svg>
+        </div>
+        <p class="state-title">Konfigurasi Diperlukan</p>
+        <p class="state-desc">
+          Buka file <code>app.js</code> dan ganti <code>APPS_SCRIPT_URL</code>
+          dengan URL deploy Google Apps Script kamu.<br>
+          Lihat <strong>SETUP.md</strong> untuk panduan lengkap.
+        </p>
+      </div>
+
+      <!-- Data Table -->
+      <div class="table-scroll" id="tableScroll">
+        <table class="data-table" id="dataTable">
+          <thead>
+            <tr>
+              <th class="col-no">#</th>
+              <th class="col-nama">Nama Siswa</th>
+              <th class="col-kelas">Kelas</th>
+              <th class="col-badge" data-type="Telat">
+                <span class="th-icon">⏰</span> Telat
+              </th>
+              <th class="col-badge" data-type="Make up">
+                <span class="th-icon">💄</span> Make up
+              </th>
+              <th class="col-badge" data-type="Rok Baping">
+                <span class="th-icon">👗</span> Rok Baping
+              </th>
+              <th class="col-badge" data-type="Atribut">
+                <span class="th-icon">🎽</span> Atribut
+              </th>
+              <th class="col-badge" data-type="Kaus Kaki">
+                <span class="th-icon">🧦</span> Kaus Kaki
+              </th>
+              <th class="col-badge" data-type="Benda Berbahaya">
+                <span class="th-icon">⚠️</span> B. Berbahaya
+              </th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Rows rendered by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Result count -->
+    <p class="result-count" id="resultCount"></p>
+  </main>
+
+  <!-- ═══ MODAL: Tambah Pelanggaran ═══ -->
+  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Catat Pelanggaran</h2>
+        <button class="modal-close" id="modalClose" aria-label="Tutup modal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Student info -->
+        <div class="modal-student" id="modalStudent">
+          <div class="modal-student-avatar" id="modalAvatar">A</div>
+          <div>
+            <p class="modal-student-name" id="modalNama">—</p>
+            <p class="modal-student-class" id="modalKelas">—</p>
+          </div>
+        </div>
+
+        <!-- Violation type selection -->
+        <label class="field-label">Pilih Jenis Pelanggaran</label>
+        <div class="violation-grid" id="violationGrid">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn--ghost" id="btnBatal">Batal</button>
+        <button class="btn btn--primary" id="btnSubmit" disabled>
+          <span class="btn__text">Catat Pelanggaran</span>
+          <span class="btn__loading">
+            <span class="btn-spinner"></span>
+            Menyimpan…
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TOAST CONTAINER ═══ -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
