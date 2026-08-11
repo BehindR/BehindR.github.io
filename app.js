@@ -112,10 +112,34 @@ function bindEvents() {
   });
 }
 
-/* ── Data Loading ──────────────────────────────────── */
+/* ── Data Loading & Caching ────────────────────────── */
 
-async function loadData() {
-  showState('loading');
+const CACHE_KEY_DATA = 'osis_students_cache';
+const CACHE_KEY_TOTAL = 'osis_total_violations_cache';
+
+async function loadData(silent = false) {
+  // Check for cached data first for instant display
+  const cachedData = localStorage.getItem(CACHE_KEY_DATA);
+  const cachedTotal = localStorage.getItem(CACHE_KEY_TOTAL);
+
+  let hasCache = false;
+  if (cachedData) {
+    try {
+      studentsData = JSON.parse(cachedData);
+      const totalViolations = cachedTotal ? parseInt(cachedTotal, 10) : null;
+      renderTable(studentsData);
+      updateStats(totalViolations);
+      showState('table');
+      hasCache = true;
+    } catch (e) {
+      console.warn('Cache parsing failed:', e);
+    }
+  }
+
+  // If no cache and not silent, show loading spinner
+  if (!hasCache && !silent) {
+    showState('loading');
+  }
 
   try {
     const response = await fetch(APPS_SCRIPT_URL);
@@ -131,25 +155,46 @@ async function loadData() {
     }
 
     studentsData = result.data || [];
+    const totalViolations = result.totalViolations != null ? result.totalViolations : calculateTotal(studentsData);
+
+    // Save to cache
+    localStorage.setItem(CACHE_KEY_DATA, JSON.stringify(studentsData));
+    localStorage.setItem(CACHE_KEY_TOTAL, totalViolations.toString());
 
     if (studentsData.length === 0) {
       showState('empty');
-      dom.emptyTitle.textContent = 'Belum ada data siswa';
+      if (dom.emptyTitle) dom.emptyTitle.textContent = 'Belum ada data siswa';
       dom.emptyDesc.textContent = 'Tambahkan data siswa di Sheet1 Google Spreadsheet.';
     } else {
-      renderTable(studentsData);
-      showState('table');
+      // Preserve search filter if user was searching while loading
+      if (dom.searchInput.value.trim()) {
+        handleSearch();
+      } else {
+        renderTable(studentsData);
+        showState('table');
+      }
     }
 
-    updateStats(result.totalViolations);
+    updateStats(totalViolations);
 
   } catch (err) {
     console.error('Load error:', err);
-    showError(
-      'Gagal memuat data',
-      err.message || 'Periksa koneksi internet dan URL konfigurasi.'
-    );
+    // If we had cache, don't break the UI with error screen; just show a soft toast
+    if (hasCache) {
+      showToast('Gagal memperbarui data terbaru dari server.', 'error');
+    } else {
+      showError(
+        'Gagal memuat data',
+        err.message || 'Periksa koneksi internet dan URL konfigurasi.'
+      );
+    }
   }
+}
+
+function calculateTotal(data) {
+  return data.reduce((sum, s) => {
+    return sum + Object.values(s.pelanggaran).reduce((a, b) => a + b, 0);
+  }, 0);
 }
 
 /* ── State Management ──────────────────────────────── */
@@ -389,7 +434,26 @@ async function submitViolation() {
     var result = await response.json();
 
     if (result.success) {
-      // Reset submit state before closing modal (closeModal checks isSubmitting)
+      // Instantly update local memory state
+      if (!selectedStudent.pelanggaran[selectedViolation]) {
+        selectedStudent.pelanggaran[selectedViolation] = 0;
+      }
+      selectedStudent.pelanggaran[selectedViolation] += 1;
+
+      // Update cache
+      const newTotal = calculateTotal(studentsData);
+      localStorage.setItem(CACHE_KEY_DATA, JSON.stringify(studentsData));
+      localStorage.setItem(CACHE_KEY_TOTAL, newTotal.toString());
+
+      // Update UI instantly
+      updateStats(newTotal);
+      if (dom.searchInput.value.trim()) {
+        handleSearch();
+      } else {
+        renderTable(studentsData);
+      }
+
+      // Reset submit state before closing modal
       isSubmitting = false;
       dom.btnSubmit.classList.remove('is-loading');
 
@@ -399,8 +463,8 @@ async function submitViolation() {
       );
       closeModal();
 
-      // Reload data to reflect changes
-      await loadData();
+      // Silent background sync
+      setTimeout(() => loadData(true), 1000);
 
     } else {
       showToast('Gagal: ' + (result.error || 'Terjadi kesalahan.'), 'error');
