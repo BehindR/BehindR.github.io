@@ -2,165 +2,103 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pencatat Pelanggaran — OSIS SMAN 3 Garut</title>
-  <meta name="description" content="Aplikasi pencatat dan pemantau pelanggaran siswa oleh OSIS SMAN 3 Garut. Terintegrasi dengan Google Sheets.">
-
-  <!-- Favicon -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Pencatat Pelanggaran OSIS</title>
+  <meta name="description" content="Sistem Informasi Pelanggaran Siswa - OSIS SMAN 3 Garut">
+  
   <link rel="icon" type="image/png" href="Osis.png">
-
-  <!-- Fonts — removed weight 800 (unused) -->
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-  <!-- ═══ HEADER ═══ -->
-  <header class="header" id="appHeader">
-    <div class="header-inner">
-      <div class="header-left">
-        <img src="Osis.png" alt="Logo OSIS SMAN 3 Garut" class="logo-img" width="40" height="40">
-        <div class="header-text">
-          <h1>Pencatat Pelanggaran</h1>
-          <p class="header-subtitle">OSIS SMAN 3 Garut</p>
+  <!-- Header -->
+  <header class="app-header">
+    <div class="container header-container">
+      <div class="header-brand">
+        <img src="Osis.png" alt="Logo OSIS" class="brand-logo" width="40" height="40">
+        <div>
+          <h1 class="brand-title">Pelanggaran Siswa</h1>
+          <p class="brand-subtitle">OSIS SMAN 3 Garut</p>
         </div>
       </div>
       <div class="header-stats">
-        <div class="stat-chip">
-          <span class="stat-value" id="statSiswa">—</span>
-          <span class="stat-label">Siswa</span>
+        <div class="stat-box">
+          <span class="stat-label">Total Siswa</span>
+          <span class="stat-value" id="statSiswa">0</span>
         </div>
-        <div class="stat-chip stat-chip--accent">
-          <span class="stat-value" id="statPelanggaran">—</span>
+        <div class="stat-box accent">
           <span class="stat-label">Pelanggaran</span>
+          <span class="stat-value" id="statPelanggaran">0</span>
         </div>
       </div>
     </div>
   </header>
 
-  <!-- ═══ MAIN ═══ -->
-  <main class="main">
-
-    <!-- Toolbar -->
-    <div class="toolbar" id="toolbar">
-      <div class="search-wrap">
-        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-        </svg>
-        <input
-          type="text"
-          id="searchInput"
-          class="search-input"
-          placeholder="Cari nama atau kelas…"
-          autocomplete="off"
-          spellcheck="false"
-        >
-        <button class="search-clear" id="searchClear" title="Hapus pencarian" aria-label="Hapus pencarian">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
+  <!-- Main Content -->
+  <main class="container main-content">
+    
+    <!-- Controls (Search & Legend) -->
+    <div class="controls-section">
+      <div class="search-box">
+        <svg class="icon search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" id="searchInput" placeholder="Cari nama atau kelas..." autocomplete="off" spellcheck="false">
+        <button id="searchClear" class="icon-btn clear-btn" title="Bersihkan">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </button>
       </div>
-      <div class="legend" id="legend">
-        <span class="legend-dot legend-dot--warning"></span>
-        <span class="legend-text">Telat &gt; 2×</span>
-        <span class="legend-dot legend-dot--danger"></span>
-        <span class="legend-text">Telat &gt; 3×</span>
+      
+      <div class="legend-box">
+        <div class="legend-item"><span class="dot dot-warning"></span> Telat &gt; 2×</div>
+        <div class="legend-item"><span class="dot dot-danger"></span> Telat &gt; 3×</div>
       </div>
     </div>
 
-    <!-- Table Container -->
-    <div class="table-wrap" id="tableWrap">
-
-      <!-- Loading State -->
-      <div class="state-loading" id="stateLoading">
-        <div class="spinner">
-          <div class="spinner-ring"></div>
-        </div>
-        <p class="state-text">Memuat data siswa<span class="dots"></span></p>
+    <!-- Data Area -->
+    <div class="data-card">
+      
+      <!-- States -->
+      <div id="stateLoading" class="state-view active">
+        <div class="spinner"></div>
+        <p>Memuat data siswa...</p>
       </div>
 
-      <!-- Error State -->
-      <div class="state-error" id="stateError">
-        <div class="state-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <line x1="12" y1="8" x2="12" y2="12"/>
-            <line x1="12" y1="16" x2="12.01" y2="16"/>
-          </svg>
-        </div>
-        <p class="state-title" id="errorTitle">Gagal memuat data</p>
-        <p class="state-desc" id="errorDesc">Periksa koneksi internet dan URL konfigurasi.</p>
-        <button class="btn btn--outline" id="btnRetry">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="23 4 23 10 17 10"/>
-            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
-          </svg>
-          Coba Lagi
-        </button>
+      <div id="stateError" class="state-view">
+        <div class="state-icon error-icon">⚠️</div>
+        <h3 id="errorTitle">Gagal memuat data</h3>
+        <p id="errorDesc">Periksa koneksi internet dan coba lagi.</p>
+        <button id="btnRetry" class="btn btn-outline" style="margin-top: 16px;">Coba Lagi</button>
       </div>
 
-      <!-- Empty State (no search results) -->
-      <div class="state-empty" id="stateEmpty">
-        <div class="state-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="11" cy="11" r="8"/>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            <line x1="8" y1="11" x2="14" y2="11"/>
-          </svg>
-        </div>
-        <p class="state-title" id="emptyTitle">Tidak ditemukan</p>
-        <p class="state-desc" id="emptyDesc">Tidak ada siswa yang cocok dengan pencarian.</p>
+      <div id="stateEmpty" class="state-view">
+        <div class="state-icon">🔍</div>
+        <h3 id="emptyTitle">Tidak ditemukan</h3>
+        <p id="emptyDesc">Tidak ada data siswa yang cocok.</p>
       </div>
 
-      <!-- Config Required State -->
-      <div class="state-config" id="stateConfig">
-        <div class="state-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
-          </svg>
-        </div>
-        <p class="state-title">Konfigurasi Diperlukan</p>
-        <p class="state-desc">
-          Buka file <code>app.js</code> dan ganti <code>APPS_SCRIPT_URL</code>
-          dengan URL deploy Google Apps Script kamu.<br>
-          Lihat <strong>SETUP.md</strong> untuk panduan lengkap.
-        </p>
+      <div id="stateConfig" class="state-view">
+        <div class="state-icon">⚙️</div>
+        <h3>Konfigurasi Diperlukan</h3>
+        <p>Silakan isi <code>APPS_SCRIPT_URL</code> di <code>app.js</code> terlebih dahulu.</p>
       </div>
 
-      <!-- Data Table -->
-      <div class="table-scroll" id="tableScroll">
-        <table class="data-table" id="dataTable">
+      <!-- Table -->
+      <div id="tableScroll" class="table-container" style="display: none;">
+        <table class="data-table">
           <thead>
             <tr>
-              <th class="col-no">#</th>
-              <th class="col-nama">Nama Siswa</th>
-              <th class="col-kelas">Kelas</th>
-              <th class="col-badge" data-type="Telat">
-                <span class="th-icon">⏰</span> Telat
-              </th>
-              <th class="col-badge" data-type="Make up">
-                <span class="th-icon">💄</span> Make up
-              </th>
-              <th class="col-badge" data-type="Rok Baping">
-                <span class="th-icon">👗</span> Rok Baping
-              </th>
-              <th class="col-badge" data-type="Atribut">
-                <span class="th-icon">🎽</span> Atribut
-              </th>
-              <th class="col-badge" data-type="Kaus Kaki">
-                <span class="th-icon">🧦</span> Kaus Kaki
-              </th>
-              <th class="col-badge" data-type="Benda Berbahaya">
-                <span class="th-icon">⚠️</span> B. Berbahaya
-              </th>
+              <th class="w-no">#</th>
+              <th>Nama Siswa</th>
+              <th class="w-kelas">Kelas</th>
+              <th class="w-badge" title="Telat">⏰ Telat</th>
+              <th class="w-badge" title="Make up">💄 Make up</th>
+              <th class="w-badge" title="Rok Baping">👗 Rok Baping</th>
+              <th class="w-badge" title="Atribut">🎽 Atribut</th>
+              <th class="w-badge" title="Kaus Kaki">🧦 Kaus Kaki</th>
+              <th class="w-badge" title="Benda Berbahaya">⚠️ B. Berbahaya</th>
             </tr>
           </thead>
           <tbody id="tableBody">
@@ -168,57 +106,51 @@
           </tbody>
         </table>
       </div>
-    </div>
+      
+      <!-- Footer Info & Pagination -->
+      <div class="data-footer">
+        <div id="resultCount" class="result-info"></div>
+        <div id="pagination" class="pagination"></div>
+      </div>
 
-    <!-- Result count -->
-    <p class="result-count" id="resultCount"></p>
+    </div>
   </main>
 
-  <!-- ═══ MODAL: Tambah Pelanggaran ═══ -->
-  <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal" id="modal">
+  <!-- Modal Tambah Pelanggaran -->
+  <div id="modalOverlay" class="modal-overlay">
+    <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title" id="modalTitle">Catat Pelanggaran</h2>
-        <button class="modal-close" id="modalClose" aria-label="Tutup modal">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-            <line x1="18" y1="6" x2="6" y2="18"/>
-            <line x1="6" y1="6" x2="18" y2="18"/>
-          </svg>
-        </button>
+        <h2>Catat Pelanggaran</h2>
+        <button id="modalClose" class="icon-btn"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
       </div>
-
       <div class="modal-body">
-        <!-- Student info -->
-        <div class="modal-student" id="modalStudent">
-          <div class="modal-student-avatar" id="modalAvatar">A</div>
-          <div>
-            <p class="modal-student-name" id="modalNama">—</p>
-            <p class="modal-student-class" id="modalKelas">—</p>
+        
+        <div class="student-profile">
+          <div id="modalAvatar" class="avatar"></div>
+          <div class="student-info">
+            <div id="modalNama" class="student-name"></div>
+            <div id="modalKelas" class="student-class"></div>
           </div>
         </div>
-
-        <!-- Violation type selection -->
-        <label class="field-label">Pilih Jenis Pelanggaran</label>
-        <div class="violation-grid" id="violationGrid">
+        
+        <p class="form-label">Pilih Jenis Pelanggaran</p>
+        <div id="violationGrid" class="violation-grid">
           <!-- Rendered by JS -->
         </div>
+        
       </div>
-
       <div class="modal-footer">
-        <button class="btn btn--ghost" id="btnBatal">Batal</button>
-        <button class="btn btn--primary" id="btnSubmit" disabled>
-          <span class="btn__text">Catat Pelanggaran</span>
-          <span class="btn__loading">
-            <span class="btn-spinner"></span>
-            Menyimpan…
-          </span>
+        <button id="btnBatal" class="btn btn-ghost">Batal</button>
+        <button id="btnSubmit" class="btn btn-primary" disabled>
+          <span class="btn-text">Catat Pelanggaran</span>
+          <span class="btn-loader"></span>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- ═══ TOAST CONTAINER ═══ -->
-  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+  <!-- Toast Notifikasi -->
+  <div id="toastContainer" class="toast-container"></div>
 
   <!-- App Script -->
   <script src="app.js"></script>
